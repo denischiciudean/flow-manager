@@ -38154,7 +38154,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       this.form.transform(function (data) {
         return _objectSpread(_objectSpread({}, data), {}, {
-          remember: _this.form.remember ? 'on' : ''
+          remember: _this.form.remember ? 'on' : '',
+          '2fa': true
         });
       }).post(this.route('login'), {
         onFinish: function onFinish() {
@@ -38373,7 +38374,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     send: function send() {
-      this.$inertia.post('/two-factor-challenge', {
+      this.$inertia.post('/login', {
         code: this.code
       });
     }

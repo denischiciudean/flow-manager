@@ -28,10 +28,10 @@ class LoginRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        return $this->has('2fa') ? [
             'email' => 'required|string|email',
             'password' => 'required|string',
-        ];
+        ] : ['code' => 'required|string|min:6|max:6'];
     }
 
     /**

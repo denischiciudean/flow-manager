@@ -23,7 +23,7 @@ export default {
     },
     methods: {
         send() {
-            this.$inertia.post('/two-factor-challenge', {code: this.code})
+            this.$inertia.post('/login', {code: this.code})
         }
     }
 }
