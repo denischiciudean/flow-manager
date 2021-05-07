@@ -41,6 +41,16 @@ class AuthenticatedSessionController extends Controller
         return $user->sendTOTPSms();
     }
 
+    private function wrongCredentials()
+    {
+        return redirect()->route('login')->withErrors(['message' => 'These credentials do not match our records']);
+    }
+
+    private function wrongPhoneCode()
+    {
+        return redirect()->route('login')->withErrors(['message' => 'Phone verification not passed!']);
+    }
+
     /**
      * Handle an incoming authentication request.
      *
@@ -49,35 +59,49 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        if ($request->has('2fa')) {
-            $success = $this->sendSms($request->get('email'));
-            if (!$success) {
-                return redirect()->route('login')->withErrors(['message' => 'Phone verification not passed!']);
+
+        $active_topt = true;
+
+        $email = $request->has('email') ? $request->get('email') : json_decode(decrypt(\Session::get('c')), 1)['email'];
+
+        if ($request->has('email')) {
+            $user = User::where('email', $email)->first();
+            if (!$user) {
+                return $this->wrongCredentials();
             }
-            \Session::put('c', encrypt(json_encode($request->only(['email', 'password']))));
-            return redirect()->route('login.sms');
+            $active_topt = (bool)$user->phone_verified_at;
         }
 
-        if (!$request->has('2fa') && !\Session::has('c')) {
-            return redirect()->route('login')->withErrors(['message' => 'Phone verification not passed!']);
+        if ($active_topt) {
+            if ($request->has('2fa')) {
+                $success = $this->sendSms($request->get('email'));
+                if (!$success) {
+                    return $this->wrongCredentials();
+                }
+                \Session::put('c', encrypt(json_encode($request->only(['email', 'password']))));
+                return redirect()->route('login.sms');
+            }
+
+            if (!$request->has('2fa') && !\Session::has('c')) {
+                return $this->wrongPhoneCode();
+            }
+
+            $request_data = json_decode(decrypt(\Session::get('c')), 1);
+            $code_verification = User::where('email', $request_data['email'])->first()?->verifyCode($request->get('code'));
+
+            if (!$code_verification) {
+                return $this->wrongPhoneCode();
+            }
+
+            \Session::remove('c');
+
+            $request->merge($request_data);
         }
-
-        $request_data = json_decode(decrypt(\Session::get('c')), 1);
-        $code_verification = User::where('email', $request_data['email'])->first()?->verifyCode($request->get('code'));
-
-        if (!$code_verification) {
-            return redirect()->route('login')->withErrors(['message' => 'Phone verification not passed!']);
-        }
-
-        \Session::remove('c');
-
-        $request->merge($request_data);
-
 
         try {
             $request->authenticate();
         } catch (ValidationException $e) {
-            return redirect()->route('login')->withErrors(['message' => 'These credentials do not match our records']);
+            return $this->wrongCredentials();
         }
 
         $request->session()->regenerate();
