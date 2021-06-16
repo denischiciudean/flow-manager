@@ -2,6 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
+use App\Models\Permission;
+use App\Models\Role;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,6 +16,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        $this->call([RolesSeeder::class]);
+
+        if (!Permission::all()->count()) {
+            $this->call([PermissionsSeeder::class]);
+        }
+
+
+        if (!Role::all()->count()) {
+            $this->call([RolesSeeder::class]);
+        }
+
+        if (!Department::all()->count()) {
+            $this->call([DepartmentsSeeder::class]);
+        }
+
     }
 }

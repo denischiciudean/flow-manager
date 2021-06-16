@@ -16,6 +16,9 @@
                             <div class="mt-10">
                                 Introduce-ti numarul de telefon
                             </div>
+                            <div v-if="errors.phone_number">
+                                <div class="h-10 w-full bg-green-500 rounded"> asdasdas</div>
+                            </div>
                             <input type="text"
                                    v-model="phone"
                                    class="px-3 mt-4 py-1 border-solid border-2 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm shadow outline-none focus:outline-none focus:ring w-1/2"
@@ -53,7 +56,7 @@ import BreezeAuthenticatedLayout from '@/Layouts/Authenticated'
 export default {
     name: "TwoFactorAuth",
     components: {BreezeAuthenticatedLayout},
-    props: ['user'],
+    props: ['user', 'errors'],
     data() {
         return {
             sendingMessage: false,
@@ -64,6 +67,7 @@ export default {
         }
     },
     mounted() {
+        this.phone = this.$page.props.auth.user.phone_number
         this.enabled = !!this.$page.props.auth.user['phone_verified_at']
     },
     methods: {
@@ -81,7 +85,7 @@ export default {
             });
         },
         verifyCode() {
-            console.log(this.challenge_code.length)
+            // console.log(this.challenge_code.length)
             this.$inertia.post('/verify-code', {code: this.challenge_code});
         }
     }

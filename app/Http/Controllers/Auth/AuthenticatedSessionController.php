@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
+use App\StateTrack\StateTrack;
+use App\StateTrack\UserStateTrack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,8 @@ class AuthenticatedSessionController extends Controller
 
     private function wrongCredentials()
     {
+
+
         return redirect()->route('login')->withErrors(['message' => 'These credentials do not match our records']);
     }
 
@@ -95,6 +99,7 @@ class AuthenticatedSessionController extends Controller
 
             \Session::remove('c');
 
+
             $request->merge($request_data);
         }
 
@@ -105,6 +110,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         $request->session()->regenerate();
+
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -117,6 +123,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        Auth::user()->track_logout();
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

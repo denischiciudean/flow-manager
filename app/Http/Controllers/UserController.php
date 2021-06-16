@@ -16,7 +16,7 @@ class UserController extends Controller
 
     public function verifyPhone(Request $request)
     {
-        $request->validate(['phone' => 'required|string|min:12|max:12']);
+        $request->validate(['phone' => 'required|unique:users,phone_number|string|min:12|max:12']);
         $success = $request->user()->sendVerifyPhoneSMS($request->get('phone'));
         return JsonResource::make([
             'success' => $success

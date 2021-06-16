@@ -7,7 +7,9 @@
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production"
+        "production": "mix --production",
+        "build-invite-users": "cd nova-components/InviteUsers && npm run dev",
+        "build-invite-users-prod": "cd nova-components/InviteUsers && npm run prod"
     },
     "devDependencies": {
         "@inertiajs/inertia": "^0.8.4",
@@ -27,6 +29,7 @@
     },
     "dependencies": {
         "@headlessui/vue": "^1.1.1",
-        "@heroicons/vue": "^1.0.1"
+        "@heroicons/vue": "^1.0.1",
+        "vue-search-select": "^2.9.3"
     }
 }
