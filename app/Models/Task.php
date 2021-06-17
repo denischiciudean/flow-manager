@@ -33,6 +33,15 @@ class Task extends Model
         ];
     }
 
+    public function mapForSearch()
+    {
+        return [
+            'id' => $this->id,
+            'title' => $this->title,
+            'href' => route('task.view', ['task_id' => $this->id, 'task_slug' => $this->slug ?? 'task'])
+        ];
+    }
+
     public function steps()
     {
         return $this->hasMany(TaskStep::class, 'task_id');

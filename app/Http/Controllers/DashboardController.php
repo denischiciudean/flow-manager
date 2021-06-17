@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\TimeHelpers;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -24,7 +23,7 @@ class DashboardController extends Controller
             ->values()
             ->filter(fn($it) => \Str::of($it->title)->lower()->contains(\Str::of($search_term)->lower()))
             ->map
-            ->mapForDashboard())
+            ->mapForSearch())
             ->toArray();
         return JsonResource::make($tasks);
     }
