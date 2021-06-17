@@ -36,24 +36,24 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('/setari', [UserController::class, 'settings'])->name('user.settings');
         });
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/search-tasks/{search_term}', [DashboardController::class, 'search'])->name('search');
+
+        Route::group(['prefix' => '/nota-noua/'], function () {
+            Route::get('departament', [TasksController::class, 'selectDepartment'])->name('task.create.select_department');
+            Route::post('post/creaza/{workflow_id}/{slug}', [TasksController::class, 'createTask'])->name('task.create.process');
+            Route::get('creaza/{workflow_id}/{workflow_slug}', [TasksController::class, 'create'])->name('workflow.create');
+            Route::get('{department_id}/{department_slug}/tip-nota', [TasksController::class, 'selectWorkflow'])->name('task.create.select_workflow');
+        });
+
+        Route::get('/view-file/{step}/{data_key}/{file}', [TasksController::class, 'viewFile'])->name('task.viewFile');
+
+        Route::group(['prefix' => '/note'], function () {
+            Route::post('/{task_id}/{task_slug}/reatribuie', [TasksController::class, 'reassign'])->name('task.reassign');
+            Route::get('/{task_id}/{task_slug}/', [TasksController::class, 'view'])->name('task.view');
+            Route::post('/finish-step', [TasksController::class, 'advanceStep'])->name('tasks.finish_step');
+        });
     });
-
-
-    Route::group(['prefix' => '/nota-noua/'], function () {
-        Route::get('departament', [TasksController::class, 'selectDepartment'])->name('task.create.select_department');
-        Route::post('post/creaza/{workflow_id}/{slug}', [TasksController::class, 'createTask'])->name('task.create.process');
-        Route::get('creaza/{workflow_id}/{workflow_slug}', [TasksController::class, 'create'])->name('workflow.create');
-        Route::get('{department_id}/{department_slug}/tip-nota', [TasksController::class, 'selectWorkflow'])->name('task.create.select_workflow');
-    });
-
-    Route::get('/view-file/{step}/{data_key}/{file}', [TasksController::class, 'viewFile'])->name('task.viewFile');
-
-    Route::group(['prefix' => '/note'], function () {
-        Route::post('/{task_id}/{task_slug}/reatribuie', [TasksController::class, 'reassign'])->name('task.reassign');
-        Route::get('/{task_id}/{task_slug}/', [TasksController::class, 'view'])->name('task.view');
-        Route::post('/finish-step', [TasksController::class, 'advanceStep'])->name('tasks.finish_step');
-    });
-
 });
 
 require __DIR__ . '/auth.php';

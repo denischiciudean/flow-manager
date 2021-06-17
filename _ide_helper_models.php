@@ -124,9 +124,27 @@ namespace App\Models{
 /**
  * App\Models\StateTrack
  *
+ * @property int $id
+ * @property int|null $user_id
+ * @property string $type
+ * @property string $note
+ * @property array $data
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $state_trackable
+ * @property-read int|null $state_trackable_count
  * @method static \Illuminate\Database\Eloquent\Builder|StateTrack newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StateTrack newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|StateTrack query()
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereData($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereNote($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|StateTrack whereUserId($value)
  */
 	class StateTrack extends \Eloquent {}
 }
@@ -177,7 +195,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property string|null $expires_at
+ * @property \Illuminate\Support\Carbon|null $expires_at
  * @property string|null $completed_at
  * @property string|null $slug
  * @property string|null $status
@@ -185,6 +203,8 @@ namespace App\Models{
  * @property-read \App\Models\Department $department
  * @property-read \Illuminate\Database\Eloquent\Collection|Task[] $parent_split
  * @property-read int|null $parent_split_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StateTrack[] $stateChanges
+ * @property-read int|null $state_changes_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TaskStep[] $steps
  * @property-read int|null $steps_count
  * @property-read \App\Models\Workflow $workflow
@@ -249,6 +269,8 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property-read \App\Models\User|null $assignedTo
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StateTrack[] $stateChanges
+ * @property-read int|null $state_changes_count
  * @property-read \App\Models\Step $step
  * @property-read \App\Models\Task $task
  * @method static \Illuminate\Database\Eloquent\Builder|TaskStep newModelQuery()

@@ -101,6 +101,7 @@ export default {
         }
     },
     mounted() {
+
         if (this.fixed_value) {
             this.uploaded_docs = this.fixed_value.map(it => {
                 const basename = this.basename(it);
@@ -112,7 +113,8 @@ export default {
         }
     },
     methods: {
-        basename: (path) => path.substring(path.lastIndexOf('/') + 1),
+        basename: (path) => typeof path == 'string' ? path.substring(path.lastIndexOf('/') + 1) : '-',
+
         handleFileUpload(e) {
             this.uploaded_docs = [...this.uploaded_docs, ...e.target.files];
         },
