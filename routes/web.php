@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\UserController;
@@ -52,6 +53,16 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::post('/{task_id}/{task_slug}/reatribuie', [TasksController::class, 'reassign'])->name('task.reassign');
             Route::get('/{task_id}/{task_slug}/', [TasksController::class, 'view'])->name('task.view');
             Route::post('/finish-step', [TasksController::class, 'advanceStep'])->name('tasks.finish_step');
+        });
+
+
+        Route::group(['prefix' => 'api/'], function () {
+            Route::get('/mentionable-users', [
+                ApiController::class,
+                'mentionableUsers'
+            ]);
+
+            Route::post('/add-comment', [ApiController::class, 'addComment']);
         });
     });
 });

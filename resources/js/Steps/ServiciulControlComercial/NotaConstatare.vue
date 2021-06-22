@@ -4,16 +4,24 @@
 
         <h1 class="text-center my-5 text-2xl">Nota de Constatare</h1>
 
-        <div class=" rounded bg-white p-4">
+        <div class=" rounded bg-white p-4" v-if="agents_user_list">
             <div class="mb-3 pt-0">
-                <user-select label_name="Agent Constatator 1" :options="agents"
+                <user-select
+                    label_name="Agent Constatator 1" :options="agents_user_list"
 
-                             :fixed_value="step_data ? step_data.title : undefined"
-                             :classes="[['w-1/5'], ['w-4/5']]"/>
+                    data_key="agent_constatator_1"
+                    :fixed_value="step_data ? step_data.agent_constatator_1 : undefined"
+                    @changed="modifiedInput"
+
+                    :classes="[['w-1/5'], ['w-4/5']]"/>
             </div>
-
             <div class="mb-3 pt-0">
-                <user-select label_name="Agent Constatator 2" :options="agents" :classes="[['w-1/5'], ['w-4/5']]"/>
+                <user-select label_name="Agent Constatator 2"
+                             :options="agents_user_list"
+                             data_key="agent_constatator_2"
+                             :fixed_value="step_data ? step_data.agent_constatator_2 : undefined"
+                             @changed="modifiedInput"
+                             :classes="[['w-1/5'], ['w-4/5']]"/>
             </div>
         </div>
 
@@ -276,9 +284,11 @@ export default {
                 emis_proces_verbal: false,
                 uploaded_doc: null
             },
+            agents_user_list: null
         }
     },
     mounted() {
+        this.retrieveUsers();
         if (this.step_data) {
             this.form.emis_proces_verbal = !!this.step_data.emis_proces_verbal
         }
@@ -287,8 +297,14 @@ export default {
         modifiedInput(data) {
             this.form[data[0]] = data[1]
         },
+
         submit() {
             this.$inertia.post(`/nota-noua/post/creaza/${this.workflow_id}/${this.workflow_slug}`, this.form)
+        },
+
+        async retrieveUsers() {
+            const res = await axios.get(`/api/mentionable-users?workflow_id=${this.workflow_id}`);
+            this.agents_user_list = res.data.data;
         }
     }
 }

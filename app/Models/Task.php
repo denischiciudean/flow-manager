@@ -6,6 +6,7 @@ use App\Components\TimeHelpers;
 use App\StateTrack\TaskStateTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class Task extends Model
 {
@@ -32,6 +33,24 @@ class Task extends Model
             'href' => route('task.view', ['task_id' => $this->id, 'task_slug' => $this->slug ?? 'task'])
         ];
     }
+
+    /**
+     * @return array{
+     * created_by: {
+     * name: 'User Name',
+     * id: 1
+     * },
+     * task: {
+     * title: 'Titlu Task',
+     * id: 1
+     * },
+     * date: '12.01.2020 14:15',
+     * content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
+     * message_id: 1,
+     * href: '#',
+     * created_at: 1623319742
+     * },
+     */
 
     public function mapForSearch()
     {
@@ -70,6 +89,11 @@ class Task extends Model
     public function stateChanges()
     {
         return $this->morphToMany(StateTrack::class, 'state_trackable');
+    }
+
+    public function comments()
+    {
+        return $this->morphToMany(Reply::class, 'replyable', 'replyables');
     }
 
 }

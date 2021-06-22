@@ -25,7 +25,6 @@ class TasksController extends Controller
             'data' => $data
         ] = $request->all();
 
-
         /**
          * Validate the data
          */
@@ -211,6 +210,17 @@ class TasksController extends Controller
                 $reassign_users = [...$bosses, ...$employees];
             }
         }
+
+        /*
+         * GET COMMENTS
+         */
+
+        $comments = $task->comments?->map(fn($it) => [
+                'user' => $it->user->name,
+                'content' => $it->content
+            ])->toArray() ?? [];
+
+
         return Inertia::render('Tasks/ViewTask', [
             'task' => $task,
             'workflow' => $flow,
@@ -218,7 +228,8 @@ class TasksController extends Controller
             'current_step' => $current_step,
             'allowed_to_reassign' => $allowed_to_reassign,
             'reassign_users' => $reassign_users,
-            'history' => $history
+            'history' => $history,
+            'comments' => $comments
         ]);
     }
 

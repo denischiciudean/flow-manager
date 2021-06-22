@@ -4,7 +4,7 @@
             <left-sidebar/>
         </template>
 
-        <template #right-sidebar>
+        <template #right-sidebar v-if="$page.props.messages.length">
             <right-sidebar/>
         </template>
 

@@ -1,4 +1,5 @@
 <template>
+
     <main-layout>
         <template #left-sidebar>
             <left-sidebar></left-sidebar>
@@ -17,7 +18,6 @@
         <div class="rounded bg-white p-4 mt-3" v-for="(completed_step, i) in done_steps">
             <disclosure-pane :title="`${completed_step.name}`"
                              :default_open="false">
-
                 <component :is="completed_step.component"
                            :department="task"
                            :workflow_id="workflow.id"
@@ -26,7 +26,6 @@
                            :step_data="completed_step.data"
                            :is_display="true"
                 ></component>
-
             </disclosure-pane>
         </div>
 
@@ -40,7 +39,11 @@
             </disclosure-pane>
         </div>
 
-
+        <div class="rounded bg-white p-4 mt-5" v-if="current_step || comments.length">
+            <disclosure-pane :title="`Comments`" :default_open="true">
+                <comments-section :mentionable_users="mentionable_users" :comments="comments"/>
+            </disclosure-pane>
+        </div>
     </main-layout>
 </template>
 
@@ -51,11 +54,13 @@ import TaskHistoryRightSidebar from "./Partials/TaskHistoryRightSidebar";
 import {PlusIcon} from '@heroicons/vue/outline/'
 import DisclosurePane from "../../Components/DisclosurePane";
 import * as all_steps from '@/Steps'
+import CommentsSection from "../../Components/CommentsSection";
 
 export default {
     name: "ViewTask",
-    props: ['task', 'workflow', 'done_steps', 'current_step'],
+    props: ['task', 'workflow', 'done_steps', 'current_step', 'comments'],
     components: {
+        CommentsSection,
         TaskHistoryRightSidebar, LeftSidebar, MainLayout, PlusIcon,
         DisclosurePane,
         ...all_steps
@@ -63,9 +68,17 @@ export default {
     data() {
         return {
             completed_steps: [],
+            mentionable_users: []
+        }
+    },
+    methods: {
+        async retrieveMentionableUsers() {
+            const res = await axios.get(`/api/mentionable-users?workflow_id=${this.$page.props.workflow.id}`);
+            this.mentionable_users = res.data.data;
         }
     },
     mounted() {
+        this.retrieveMentionableUsers();
     }
 }
 </script>

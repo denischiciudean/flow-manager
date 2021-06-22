@@ -36,18 +36,19 @@
                             </button>
 
                             <Dialog as="div" :open="isOpen" @close="setIsOpen">
-                                <div class="fixed inset-0 z-10 overflow-y-auto text-white">
+                                <div class="fixed inset-0 z-10 overflow-y-scroll text-white">
                                     <div class="min-h-screen px-4 text-center">
                                         <DialogOverlay class="fixed inset-0"/>
                                         <div
-                                            class="inline-block w-full max-w-md p-6 my-8  overflow-hidden text-left align-middle transition-all transform bg-gray-600 border-purple-500 border-1 shadow-xl rounded-2xl"
+                                            style="height:240px"
+                                            class="inline-block w-full max-w-md p-6 my-8   overflow-hidden text-left align-middle transition-all transform bg-gray-600 border-purple-500 border-1 shadow-xl rounded-2xl"
                                         >
 
                                             <DialogTitle as="div" class="text-2xl text-white">
                                                 Schimba Responsabil
                                             </DialogTitle>
 
-                                            <div class="mt-2">
+                                            <div class="mt-2 ">
                                                 <Listbox v-model="user">
                                                     <div class="relative mt-1">
                                                         <ListboxButton
@@ -111,14 +112,16 @@
                                                 <!--                                                    </option>-->
                                                 <!--                                                </select>-->
                                             </div>
+                                            <div class="mt-5">
 
-                                            <button class="py-2 px-3 font-bold mt-2 bg-green-500 rounded mx-2"
-                                                    @click="reassignUser()">Reatribuie
-                                            </button>
+                                                <button class="py-2 px-3 font-bold mt-2 bg-green-500 rounded mx-2"
+                                                        @click="reassignUser()">Reatribuie
+                                                </button>
 
-                                            <button class="py-2 px-3 font-bold mt-2 bg-red-500 rounded mx-2"
-                                                    @click="setIsOpen(false)">Iesi
-                                            </button>
+                                                <button class="py-2 px-3 font-bold mt-2 bg-red-500 rounded mx-2"
+                                                        @click="setIsOpen(false)">Iesi
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

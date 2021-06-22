@@ -63,6 +63,31 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Mention
+ *
+ * @property int $id
+ * @property int $reply_id
+ * @property int $user_id
+ * @property int $position
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention wherePosition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention whereReplyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Mention whereUserId($value)
+ */
+	class Mention extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Permission
  *
  * @property int $id
@@ -90,6 +115,54 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Permission whereUpdatedAt($value)
  */
 	class Permission extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Reply
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property string $text
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply whereText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply whereUserId($value)
+ */
+	class Reply extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ReplyReadReceipts
+ *
+ * @property int $id
+ * @property int $reply_id
+ * @property int $user_id
+ * @property string|null $read_at
+ * @property string|null $seen_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts whereReadAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts whereReplyId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts whereSeenAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ReplyReadReceipts whereUserId($value)
+ */
+	class ReplyReadReceipts extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -309,6 +382,7 @@ namespace App\Models{
  * @property string|null $phone_number
  * @property string|null $phone_verified_at
  * @property string|null $phone_code
+ * @property string|null $username
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Department[] $departments
  * @property-read int|null $departments_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -341,6 +415,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorRecoveryCodes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereTwoFactorSecret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
  */
 	class User extends \Eloquent {}
 }

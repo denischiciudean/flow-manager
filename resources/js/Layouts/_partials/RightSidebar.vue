@@ -9,15 +9,18 @@
                         </h2>
                         <div class="mt-6 flow-root">
                             <ul class="-my-4 divide-y divide-gray-200">
-                                <li v-for="message in messages" :key="message.id"
+                                <li v-for="message in $page.props.messages" :key="message.id"
                                     class="flex items-center py-4 space-x-3 border-b border-1">
                                     <div class="min-w-0 flex-1 flex-grow">
-                                        <p class="text-sm font-medium text-gray-900">
-                                            <span class="text-gray-500 font-bold">Nota : {{ message.task.title }}</span>
-                                            <br>
-                                            <span :href="message.href">{{ message.content.substr(0, 70) }}...</span>
-                                            <a href="#" class="text-gray-500 text-xs float-right">Citeste >>> </a>
-                                        </p>
+                                        <div class="text-sm font-medium text-gray-900">
+                                            <span
+                                                class="text-gray-500 font-bold my-2">Nota : {{ message.task.title }}</span>
+                                            <span class="text-gray-500 my-2"
+                                                  v-html="proxyGenerateHtml(message.content)"></span>
+                                            <inertia-link :href="message.href"
+                                                          class="text-gray-500 text-xs float-right">Citeste >>>
+                                            </inertia-link>
+                                        </div>
                                         <div class="mt-2">
                                             @{{ message.created_by.name }} acum
                                             {{ parseInt(((Date.now() / 1000 - message.created_at) / 60)) }} minute
@@ -41,61 +44,35 @@
 </template>
 
 <script>
-const messages = [
-    {
-        created_by: {
-            name: 'User Name',
-            id: 1
-        },
-        task: {
-            title: 'Titlu Task',
-            id: 1
-        },
-        date: '12.01.2020 14:15',
-        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-        message_id: 1,
-        href: '#',
-        created_at: 1623319742
-    },
+import {generateHTML} from '@tiptap/core';
+import Document from '@tiptap/extension-document'
 
-    {
-        created_by: {
-            name: 'User Name',
-            id: 1
-        },
-        task: {
-            title: 'Titlu Task',
-            id: 1
-        },
-        date: '12.01.2020 14:15',
-        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-        message_id: 1,
-        href: '#',
-        created_at: 1623319742
-    },
+import Paragraph from '@tiptap/extension-paragraph'
 
-    {
-        created_by: {
-            name: 'User Name',
-            id: 1
-        },
-        task: {
-            title: 'Titlu Task',
-            id: 1
-        },
-        date: '12.01.2020 14:15',
-        content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
-        message_id: 1,
-        href: '#',
-        created_at: 1623319742
-    },
-    // More people...
-]
+import Text from '@tiptap/extension-text'
+
+import Mention from '@tiptap/extension-mention'
+
+import CommentMentionList from "@/Components/CommentMentionList";
+
 export default {
     name: "RightSidebar",
+
     data() {
-        return {
-            messages,
+        return {}
+    },
+    methods: {
+        proxyGenerateHtml(msg) {
+            return generateHTML(msg, [
+                Text,
+                Paragraph,
+                Document,
+                Mention.configure({
+                    HTMLAttributes: {
+                        class: 'bg-blue-400 px-2 rounded text-white',
+                    }
+                }),
+            ]);
         }
     }
 }
