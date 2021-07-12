@@ -1,12 +1,12 @@
 <template>
-    <aside class="hidden xl:block xl:col-span-4">
+    <aside class="hidden xl:block xl:col-span-3">
         <div class="sticky top-4 space-y-4">
             <section aria-labelledby="who-to-follow-heading">
                 <div class="bg-white rounded-lg shadow">
                     <div class="p-6">
                         <div id="who-to-follow-heading" class="text-base font-medium text-gray-900">
                             <div v-for="(it, i) in $page.props.history" :key="it.id">
-                                {{ i }}. {{ it.note }}
+                                {{ i+1 }}. {{ it.note }}
                             </div>
                         </div>
                         <div class="mt-6 flow-root">

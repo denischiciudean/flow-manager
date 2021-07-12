@@ -4,121 +4,99 @@
 
         <h1 class="text-center my-5 text-2xl">Nota de Constatare</h1>
 
-        <div class=" rounded bg-white p-4" v-if="agents_user_list">
-            <div class="mb-3 pt-0">
-                <user-select
-                    label_name="Agent Constatator 1" :options="agents_user_list"
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3" v-if="agents_user_list">
 
-                    data_key="agent_constatator_1"
-                    :fixed_value="step_data ? step_data.agent_constatator_1 : undefined"
-                    @changed="modifiedInput"
+            <div class="px-4 py-5 bg-white sm:p-6">
+                <div class="grid grid-cols-6 gap-6">
+                    <user-select
+                        label_name="Agent Constatator 1" :options="agents_user_list"
 
-                    :classes="[['w-1/5'], ['w-4/5']]"/>
-            </div>
-            <div class="mb-3 pt-0">
-                <user-select label_name="Agent Constatator 2"
-                             :options="agents_user_list"
-                             data_key="agent_constatator_2"
-                             :fixed_value="step_data ? step_data.agent_constatator_2 : undefined"
-                             @changed="modifiedInput"
-                             :classes="[['w-1/5'], ['w-4/5']]"/>
+                        data_key="agent_constatator_1"
+                        :fixed_value="step_data ? step_data.agent_constatator_1 : undefined"
+                        @changed="modifiedInput"/>
+                    <user-select label_name="Agent Constatator 2"
+                                 :options="agents_user_list"
+                                 data_key="agent_constatator_2"
+                                 :fixed_value="step_data ? step_data.agent_constatator_2 : undefined"
+                                 @changed="modifiedInput"/>
+                </div>
             </div>
         </div>
 
-        <div class="rounded bg-white p-4 mt-4">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
             <disclosure-pane title="Agent Economic" :default_open="true">
-                <div class="mb-3 pt-2">
+                <div class="p-4 grid grid-cols-6 gap-6">
                     <form-text-input
                         label="Nume"
                         data_key="agent_economic_nume"
                         :max_len="128"
+                        :colspans="[6, 3]"
                         :fixed_value="step_data ? step_data.agent_economic_nume : undefined"
                         @changed="modifiedInput"
                     />
                 </div>
 
                 <!-- SEDIU-->
-                <formular-sediu @changed="modifiedInput" :step_data="step_data"/>
+                <formular-sediu @changed="modifiedInput" :step_data="step_data" class="mb-3"/>
                 <!-- END SEDIU -->
-                <formular-registrul-comertului @changed="modifiedInput" :step_data="step_data"/>
+                <formular-registrul-comertului @changed="modifiedInput" :step_data="step_data" class="mb-3"/>
                 <!-- END REG COMERTULUI -->
                 <!-- Date Reprezentat-->
-                <form-reprezentant @changed="modifiedInput" :step_data="step_data"/>
+                <form-reprezentant @changed="modifiedInput" :step_data="step_data" class="mb-3"/>
                 <!-- END Date Reprezentat-->
             </disclosure-pane>
         </div>
 
         <!--   DATE CONSTATARE     -->
-        <div class="rounded bg-white p-4 mt-4">
-            <disclosure-pane title="Date Constatare">
-                <div class="mb-3 pt-0">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
+            <disclosure-pane title="Date Constatare" :default_open="true">
+                <div class="p-4 grid grid-cols-6 gap-6">
                     <form-text-input label="Seria"
+                                     :colspans="[6, 1]"
                                      data_key="constatare_seria"
                                      :fixed_value="department ? department.doc_series : (step_data ? step_data.constatare_seria : undefined)"
                                      @changed="modifiedInput"
                     />
-                </div>
-
-                <div class="mb-3 pt-0">
                     <form-text-input label="Numar"
                                      data_key="constatare_nr"
+                                     :colspans="[6, 1]"
+
                                      :fixed_value="step_data ? step_data.constatare_nr : undefined"
                                      @changed="modifiedInput"
                     />
-                </div>
 
-                <div class="mb-3 pt-0">
-                    <form-text-input label="Data"
-                                     data_key="constatare_data"
-                                     :fixed_value="step_data ? step_data.constatare_data : undefined"
-                                     @changed="modifiedInput"
-                    />
-                </div>
+                    <c-date-picker :colspans="[6, 2]"
+                                   data_key="constatare_data"
+                                   label="Data"
+                                   @changed="modifiedInput"/>
 
-                <div class="mb-3 pt-0">
-                    <form-text-input label="Ora"
-                                     data_key="constatare_ora"
-                                     :fixed_value="step_data ? step_data.constatare_ora : undefined"
-                                     @changed="modifiedInput"
-                    />
-                </div>
-
-                <div class="mb-3 pt-0">
                     <form-text-input label="Unitatea situată la adresa"
                                      :max_len="256"
+                                     :colspans="[6, 2]"
                                      data_key="constatare_unitate_adresa"
                                      :fixed_value="step_data ? step_data.constatare_unitate_adresa : undefined"
                                      @changed="modifiedInput"
                     />
-                </div>
-
-                <div class="mb-3 pt-0">
                     <form-text-input label="Cu profil"
                                      data_key="constatare_unitate_profil"
+                                     :colspans="[6, 2]"
                                      :fixed_value="step_data ? step_data.constatare_unitate_profil : undefined"
                                      @changed="modifiedInput"
                     />
-                </div>
-
-                <div class="mb-3 pt-0">
                     <form-text-input label="În prezența"
                                      :max_len="128"
+                                     :colspans="[6, 2]"
                                      data_key="constatare_in_prezenta"
                                      :fixed_value="step_data ? step_data.constatare_in_prezenta : undefined"
                                      @changed="modifiedInput"
                     />
-                </div>
-
-                <div class="mb-3 pt-0">
                     <form-text-input label="În calitate de"
                                      :max_len="128"
+                                     :colspans="[6, 2]"
                                      :fixed_value="step_data ? step_data.constatare_in_calitate_de : undefined"
                                      data_key="constatare_in_calitate_de"
                                      @changed="modifiedInput"
                     />
-                </div>
-
-                <div class="mb-3 pt-0">
                     <form-big-text-input label="Constatari" data_key="constatare_text"
                                          @changed="modifiedInput"/>
                 </div>
@@ -127,8 +105,8 @@
         <!--    END DATE CONSTATARE    -->
 
         <!-- DOCUMENTE PREZENTATE-->
-        <div class="rounded bg-white p-4 mt-4">
-            <disclosure-pane title="Au fost prezente la control următoarele documente" default_open="true">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
+            <disclosure-pane title="Au fost prezente la control următoarele documente" :default_open="true">
                 <div class="mb-3 pt-0">
                     <check-box label="Autorizație de funcționare" data_key="prezentare_autorizatie_functionare"
                                :fixed_value="step_data ? step_data.prezentare_autorizatie_functionare : undefined"
@@ -148,20 +126,19 @@
         <!-- END DOCUMENTE PREZENTATE-->
 
         <!-- MENTIUNI -->
-        <div class="rounded bg-white p-4 mt-4">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
             <disclosure-pane :title="'Mentiuni'" :default_open="true">
-                <div class="mb-3 pt-0">
+                <div class="p-4 grid grid-cols-6 gap-6">
                     <form-big-text-input
                         label="Mentiuni"
                         data_key="mentiuni"
+                        :colspans="[6, 3]"
                         @changed="modifiedInput"
                     />
-                </div>
-
-                <div class="mb-3 pt-0">
                     <form-big-text-input
                         label="Masuri"
                         data_key="masuri"
+                        :colspans="[6, 3]"
                         @changed="modifiedInput"
                     />
                 </div>
@@ -169,7 +146,7 @@
         </div>
         <!-- MENTIUNI -->
 
-        <div class="rounded bg-white p-4 mt-4">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
             <RadioGroup v-model="form.emis_proces_verbal" :disabled="is_display">
                 <RadioGroupLabel>
                     <div class="mb-3 pt-0">
@@ -182,13 +159,13 @@
                 </RadioGroupLabel>
                 <div class="flex justify-around">
                     <RadioGroupOption v-slot="{ checked }" :value="true">
-                        <div class="px-3 py-2 rounded shadow outline-none"
-                             :class="checked ? 'bg-blue-400 text-white font-bold' : ''">Da
+                        <div class="px-3 cursor-pointer py-2 rounded shadow outline-none"
+                             :class="checked ? 'bg-indigo-400 text-white font-bold' : ''">Da
                         </div>
                     </RadioGroupOption>
                     <RadioGroupOption v-slot="{ checked }" :value="false">
-                        <div class="px-3 py-2 rounded shadow outline-none"
-                             :class="checked ? 'bg-blue-400 text-white font-bold' : ''">Nu
+                        <div class="px-3 py-2 cursor-pointer rounded shadow outline-none"
+                             :class="checked ? 'bg-indigo-400 text-white font-bold' : ''">Nu
                         </div>
                     </RadioGroupOption>
                 </div>
@@ -196,14 +173,14 @@
         </div>
 
         <!-- PREZENTARE SEDIU -->
-        <div class="rounded bg-white p-4 mt-4">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
             <disclosure-pane title="Prezentare la sediu">
-                <div class="mb-3 pt-0">
-                    <form-text-input label="Data" data_key="prezentare_sediu_data"/>
-                </div>
-
-                <div class="mb-3 pt-0">
-                    <form-text-input label="Ora" data_key="prezentare_sediu_ora"/>
+                <div class="p-4 grid grid-cols-6 gap-6">
+                    <c-date-picker :colspans="[6, 3]"
+                                   data_key="prezentare_sediu_data"
+                                   label="Data"
+                                   @changed="modifiedInput"/>
+<!--                    <form-text-input label="Ora" data_key="prezentare_sediu_ora" @changed="modifiedInput"/>-->
                 </div>
             </disclosure-pane>
         </div>
@@ -247,10 +224,12 @@ import FormularSediu from "../../Components/StepComponents/Forms/FormularSediu";
 import FormularRegistrulComertului from "../../Components/StepComponents/Forms/FormularRegistrulComertului";
 import FormReprezentant from "../../Components/StepComponents/Forms/FormReprezentant";
 import FileUpload from "../../Components/StepComponents/FileUpload";
+import CDatePicker from "../../Components/CDatePicker";
 
 export default {
     name: "NotaConstatare",
     components: {
+        CDatePicker,
         FileUpload,
         FormReprezentant,
         FormularRegistrulComertului,

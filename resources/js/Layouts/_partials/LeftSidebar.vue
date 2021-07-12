@@ -32,7 +32,7 @@ import {ClockIcon, HomeIcon, TrendingUpIcon, ArchiveIcon, InboxInIcon} from "@he
 
 const navigation = [
     {name: 'Notele mele', href: '/dashboard', icon: HomeIcon, current: true},
-    {name: 'Inbox', href: '#', icon: InboxInIcon, current: false},
+    {name: 'Inbox', href: '/mesagerie', icon: InboxInIcon, current: false},
     {name: 'Istoric', href: '#', icon: ClockIcon, current: false},
     {name: 'Rapoarte', href: '#', icon: TrendingUpIcon, current: false},
     {name: 'Arhiva', href: '#', icon: ArchiveIcon, current: false},

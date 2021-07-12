@@ -37,7 +37,7 @@
                                 <div class="shadow border-1 border-solid w-auto rounded-xl px-2 py-2 w-full">
                                     <div class="flex flex-row" v-if="editor">
                                         <!--                                        ADD EHERE-->
-                                        <editor-content class="w-full" :editor="editor"/>
+                                        <editor-content class="w-full border-2 border-solid border-gray-300 rounded-lg" :editor="editor"/>
                                         <button @click="addComment"
                                                 class="py-2 px-2 mx-3 rounded bg-green-500 text-white font-bold">Add
                                         </button>
@@ -102,7 +102,7 @@ export default {
     data() {
         return {
             display_comments: [],
-            text: '',
+            text: 'asdasd ',
             mentions: [],
             suggestions: [],
             editor: null,
@@ -156,6 +156,7 @@ export default {
                 },
             },
         });
+
         this.editor = new Editor({
             extensions: [
                 Document,
@@ -164,7 +165,7 @@ export default {
                 this.mention,
             ],
             editable: this.editable,
-            content: '  ',
+            content: ' CONTENT ',
         })
 
         this.display_comments = this.comments.map(it => {

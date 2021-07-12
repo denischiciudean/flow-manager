@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\TasksController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('creaza/{workflow_id}/{workflow_slug}', [TasksController::class, 'create'])->name('workflow.create');
             Route::get('{department_id}/{department_slug}/tip-nota', [TasksController::class, 'selectWorkflow'])->name('task.create.select_workflow');
         });
+
+        Route::get('/mesagerie', [MessagesController::class, 'index'])->name('messages.index');
 
         Route::get('/view-file/{step}/{data_key}/{file}', [TasksController::class, 'viewFile'])->name('task.viewFile');
 

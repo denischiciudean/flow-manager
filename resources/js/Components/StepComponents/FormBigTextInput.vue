@@ -1,26 +1,28 @@
 <template>
-    <div class="flex flex-row justify-around">
-        <div class="mx-4 w-1/5">
-            <span class="text-sm">{{ label }}</span>
-        </div>
-        <div class="flex-grow w-4/5">
-            <textarea id="about" name="about" rows="3"
-                      v-model="value"
-                      :disabled="hasFixedValue"
-                      @keyup="valueChanged"
-                      class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"/>
-        </div>
+    <div :class="`col-span-${spans[0]} sm:col-span-${spans[1]}`">
+        <label for="email_address" class="block text-sm font-medium text-gray-700">{{ label }}</label>
+        <textarea id="about" name="about" rows="3"
+                  v-model="value"
+                  :disabled="hasFixedValue"
+                  @keyup="valueChanged"
+                  class="shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"/>
     </div>
 </template>
 
 <script>
 export default {
     name: "FormBigTextInput",
-    props: ['label', 'data_key', 'fixed_value'],
+    props: ['label', 'data_key', 'fixed_value', 'colspans'],
     data() {
         return {
             value: '',
-            hasFixedValue: false
+            hasFixedValue: false,
+            spans: [6, 4]
+        }
+    },
+    created() {
+        if (this.colspans) {
+            this.spans = this.colspans;
         }
     },
     mounted() {

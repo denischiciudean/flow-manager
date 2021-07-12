@@ -5,8 +5,16 @@
         </div>
         <div class="mt-4 flex flex-row justify-center" v-if="!is_display">
             <div class="my-3">
-                <button @click="complete" class="py-1 px-3 bg-yellow-400 rounded-lg text-white font-bold">Termina
-                </button>
+                <DatePicker v-model="date"  :model-config="{
+                type: 'datetime',
+                }">
+                    <template #default="{ inputValue, inputEvents }">
+                        <input class="px-3 py-1 border rounded" :value="inputValue" v-on="inputEvents"/>
+                    </template>
+                </DatePicker>
+                <!--                <button @click="complete" class="py-1 px-3 bg-yellow-400 rounded-lg text-white font-bold">Termina-->
+                <!--                </button>-->
+
             </div>
         </div>
     </div>
@@ -14,10 +22,11 @@
 
 <script>
 import Button from "../../Components/Button";
+import {Calendar, DatePicker} from 'v-calendar';
 
 export default {
     name: "NotaConstatareNext",
-    components: {Button},
+    components: {Button, Calendar, DatePicker},
     props: [
         'department',
         'workflow_id',
@@ -28,6 +37,16 @@ export default {
     ],
     mounted() {
         console.log(this.previous_steps)
+    },
+    data() {
+        return {
+            date: new Date()
+        }
+    },
+    watch: {
+        date() {
+            console.log(this.date.getTime())
+        }
     },
     methods: {
         complete() {

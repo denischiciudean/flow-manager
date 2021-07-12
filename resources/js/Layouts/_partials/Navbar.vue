@@ -2,21 +2,21 @@
   <Popover as="template" v-slot="{ open }">
     <header
         :class="[open ? 'fixed inset-0 z-40 overflow-y-auto' : '', 'bg-white shadow-sm lg:static lg:overflow-y-visible']">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="relative flex justify-between xl:grid xl:grid-cols-12 lg:gap-8">
-          <div class="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-2">
-            <div class="flex-shrink-0 flex items-center hover:underline">
-              <inertia-link href="/dashboard" v-if="$page.props.department.name.length < 25">
+      <div class="mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="relative flex justify-center xl:grid xl:grid-cols-12 lg:gap-8">
+          <div class="flex md:absolute md:left-0 md:inset-y-0 lg:static xl:col-span-4">
+            <div class="flex-shrink-1 flex text-xl font-bold items-center hover:underline">
+              <inertia-link href="/dashboard" v-if="$page.props.department.name.length < 60">
                 {{ $page.props.department.name }}
               </inertia-link>
               <inertia-link href="/dashboard" v-else>
-                {{ $page.props.department.name.substr(0, 24) }}...
+                {{ $page.props.department.name.substr(0, 60) }}...
               </inertia-link>
             </div>
           </div>
-          <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-6">
+          <div class="min-w-0 flex-1 md:px-8 lg:px-0 xl:col-span-4">
             <div
-                class="flex items-center px-6 py-4 md:max-w-3xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
+                class="flex items-center px-6 py-4 md:max-w-1xl md:mx-auto lg:max-w-none lg:mx-0 xl:px-0">
               <div class="w-full">
                 <label for="search" class="sr-only">Search</label>
                 <div class="relative">

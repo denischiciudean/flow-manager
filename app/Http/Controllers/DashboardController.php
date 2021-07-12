@@ -12,13 +12,24 @@ use Inertia\Inertia;
 class DashboardController extends Controller
 {
 
-    public function index()
-
+    public function index(Request $request)
     {
+
+        $status = $request->has('status') ? $request->get('status') : 'toate';
+
         $user = auth()->user();
 
-        $tasks = Task::all()->sortByDesc('id')->values()->map->mapForDashboard()->toArray();
-
+        $tasks = Task::all()->sortByDesc('id')
+            ->values()
+            /**
+             * Expires in less than 3 days
+             */
+            ->when($status == 'expira', function ($it) {
+                return $it->filter(function ($task) {
+                    return $task->expires_at->startOfDay()->timestamp >= now()->subDays(3)->startOfDay()->timestamp;
+                });
+            })
+            ->map->mapForDashboard()->toArray();
         $messages = $user
             ->mentions()
             ->limit(5)
@@ -27,9 +38,12 @@ class DashboardController extends Controller
             ->pluck('reply')
             ->flatten()
             ->sortByDesc('id')
-            ->values()
-            ->map
-            ->formatForDashboard();
+            ->values();
+
+        if ($messages) {
+            $messages = $messages->map
+                ->formatForDashboard();
+        }
 
         return Inertia::render('Dashboard', ['tasks' => $tasks, 'messages' => $messages->toArray()]);
     }

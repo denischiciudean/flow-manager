@@ -1,5 +1,5 @@
 <template>
-    <aside class="hidden xl:block xl:col-span-4">
+    <aside class="hidden xl:block xl:col-span-3">
         <div class="sticky top-4 space-y-4">
             <section aria-labelledby="who-to-follow-heading">
                 <div class="bg-white rounded-lg shadow">

@@ -1,29 +1,48 @@
 <template>
-    <div class="flex flex-row justify-around">
-        <div class="mx-4 w-1/5">
-            <span class="text-sm">{{ label }}</span>
-        </div>
-        <div class="flex-grow w-4/5">
-            <input type="text"
-                   :placeholder="placeholder"
-                   v-model="value"
-                   :disabled="hasFixedValue"
-                   @keyup="changedValue"
-                   :class="[!valid ? 'border-2 border-red-300 focus:border-red-300 focus:outline-none appearance-none' : 'border-0 focus:outline-none focus:ring shadow outline-none']"
-                   class="px-3 py-3 placeholder-blueGray-300 text-blueGray-600 relative bg-white rounded text-sm    w-full"/>
-        </div>
+    <div :class="`col-span-${spans[0]} sm:col-span-${spans[1]}`">
+        <label for="email_address" class="block text-sm font-medium text-gray-700">{{ label }}</label>
+        <input
+            v-model="value"
+            :disabled="hasFixedValue"
+            @keyup="changedValue"
+            type="text"
+
+            :name="data_key"
+            :id="data_key"
+            autocomplete="off"
+            class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
     </div>
+    <!--    <div class="flex flex-row justify-around">-->
+    <!--        <div class="mx-4 w-1/5">-->
+    <!--            <span class="text-sm">{{ label }}</span>-->
+    <!--        </div>-->
+    <!--        <div class="flex-grow w-4/5">-->
+    <!--            <input type="text"-->
+    <!--                   :placeholder="placeholder"-->
+    <!--                   v-model="value"-->
+    <!--                   :disabled="hasFixedValue"-->
+    <!--                   @keyup="changedValue"-->
+    <!--                   :class="[!valid ? 'border-2 border-red-300 focus:border-red-300 focus:outline-none appearance-none' : 'border-0 focus:outline-none focus:ring shadow outline-none']"-->
+    <!--                   class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"/>-->
+    <!--        </div>-->
+    <!--    </div>-->
 </template>
 
 <script>
 export default {
     name: "FormTextInput",
-    props: ['label', 'max_len', 'data_key', 'fixed_value', 'prefilled'],
+    props: ['label', 'max_len', 'data_key', 'fixed_value', 'prefilled', 'colspans'],
     data() {
         return {
             value: '',
             hasFixedValue: false,
-            placeholder: ''
+            placeholder: '',
+            spans: [6, 3]
+        }
+    },
+    created() {
+        if (this.colspans) {
+            this.spans = this.colspans;
         }
     },
     watch: {

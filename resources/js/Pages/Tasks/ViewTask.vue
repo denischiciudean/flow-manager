@@ -10,26 +10,19 @@
                                         :assigned_to="!!current_step ? current_step.assigned_to : null"/>
         </template>
 
-
-        <div class="text-2xl">
-            Main Slot
+        <div v-for="(completed_step, i) in done_steps">
+            <component :is="`Details${completed_step.component}`"
+                       :department="task"
+                       class="mt-3"
+                       :workflow_id="workflow.id"
+                       :workflow_slug="workflow.slug"
+                       :step="completed_step"
+                       :step_data="completed_step.data"
+                       :is_display="true"
+            ></component>
         </div>
 
-        <div class="rounded bg-white p-4 mt-3" v-for="(completed_step, i) in done_steps">
-            <disclosure-pane :title="`${completed_step.name}`"
-                             :default_open="false">
-                <component :is="completed_step.component"
-                           :department="task"
-                           :workflow_id="workflow.id"
-                           :workflow_slug="workflow.slug"
-                           :step="completed_step"
-                           :step_data="completed_step.data"
-                           :is_display="true"
-                ></component>
-            </disclosure-pane>
-        </div>
-
-        <div class="rounded bg-white p-4 mt-5" v-if="current_step">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3" v-if="current_step">
             <disclosure-pane :title="`Current - ${current_step.component}`" :default_open="true">
                 <component
                     :is="current_step.component"

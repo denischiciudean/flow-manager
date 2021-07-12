@@ -68,17 +68,17 @@ namespace App\Models{
  * @property int $id
  * @property int $reply_id
  * @property int $user_id
- * @property int $position
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property-read \App\Models\Reply $reply
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Mention newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Mention newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Mention query()
  * @method static \Illuminate\Database\Eloquent\Builder|Mention whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mention whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mention whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Mention wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mention whereReplyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mention whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Mention whereUserId($value)
@@ -123,17 +123,22 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $user_id
- * @property string $text
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ * @property array $content
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Mention[] $mentions
+ * @property-read int|null $mentions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Task[] $task
+ * @property-read int|null $task_count
+ * @property-read \App\Models\User $user
  * @method static \Illuminate\Database\Eloquent\Builder|Reply newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reply newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Reply query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Reply whereContent($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reply whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reply whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reply whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Reply whereText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reply whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Reply whereUserId($value)
  */
@@ -272,6 +277,8 @@ namespace App\Models{
  * @property string|null $completed_at
  * @property string|null $slug
  * @property string|null $status
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Reply[] $comments
+ * @property-read int|null $comments_count
  * @property-read \App\Models\TaskStep|null $currentStep
  * @property-read \App\Models\Department $department
  * @property-read \Illuminate\Database\Eloquent\Collection|Task[] $parent_split
@@ -385,12 +392,16 @@ namespace App\Models{
  * @property string|null $username
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Department[] $departments
  * @property-read int|null $departments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Mention[] $mentions
+ * @property-read int|null $mentions_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
  * @property-read int|null $permissions_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Department[] $primary_department
  * @property-read int|null $primary_department_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Reply[] $replies
+ * @property-read int|null $replies_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @property-read int|null $roles_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\StateTrack[] $stateChanges

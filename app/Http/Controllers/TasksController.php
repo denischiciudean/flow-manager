@@ -220,7 +220,16 @@ class TasksController extends Controller
                 'content' => $it->content
             ])->toArray() ?? [];
 
-
+//        dd([
+//            'task' => $task,
+//            'workflow' => $flow,
+//            'done_steps' => $done_steps,
+//            'current_step' => $current_step,
+//            'allowed_to_reassign' => $allowed_to_reassign,
+//            'reassign_users' => $reassign_users,
+//            'history' => $history,
+//            'comments' => $comments
+//        ]);
         return Inertia::render('Tasks/ViewTask', [
             'task' => $task,
             'workflow' => $flow,

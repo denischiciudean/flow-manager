@@ -30,59 +30,11 @@
                 </nav>
             </div>
         </div>
-        <div class="mt-4">
-            <h1 class="sr-only">Recent </h1>
-            <ul class="space-y-4">
-                <li v-for="task in tasks" :key="task.id"
-                    class="bg-white px-4 py-6 shadow sm:p-6 sm:rounded-lg">
-                    <article :aria-labelledby="'task-title-' + task.id">
-                        <div>
-                            <div class="flex flex-col space-x-3">
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs font-medium text-gray-900">
-                                        <!--                                        task.department_path-->
-                                        <department-breadcrumbs :departments="task.department_path"/>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col space-x-3">
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs font-medium text-gray-900">
-                                        {{ task.created }}
-                                    </p>
-                                </div>
-                            </div>
-                            <h2 :id="'task-title-' + task.id"
-                                class="mt-4  font-bold text-xl text-gray-900">
-                                <inertia-link :href="`/note/${task.id}/${task.title}`" class="hover:underline">
-                                    {{ task.title }}
-                                </inertia-link>
-                            </h2>
-                            <div class="flex flex-col space-x-3">
-                                <div class="min-w-0 flex-1">
-                                    <p class="text-xs font-medium text-gray-900">
-                                        {{ task.assigned_to }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="mt-2 text-sm text-gray-700 space-y-4" v-html="task.description"/>
-                            <div class="flex mt-2 flex-col space-x-3 justify-center">
-                                <div class="min-w-0 flex-1 align-middle items-center">
-                                    <span class="text-md font-bold text-red-600">
-                                        Atentie : Expira in {{ task.expires_at }} zile
-                                    </span>
-                                    <inertia-link :href="`/note/${task.id}/${task.title}`"
-                                                  class="text-sm font-bold text-gray-600 float-right hover:underline cursor-pointer">
-                                        Deschide >>
-                                    </inertia-link>
-                                </div>
-                            </div>
-                        </div>
-                    </article>
-                </li>
+<!--        <div class="bg-white shadow overflow-hidden sm:rounded-md mt-5">-->
+            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+                <task-list-item :task="task" v-for="task in tasks" :key="task.id" />
             </ul>
-        </div>
+<!--        </div>-->
     </main-layout>
 </template>
 
@@ -108,6 +60,7 @@ import {
 } from "@heroicons/vue/outline/esm";
 
 import {Menu, MenuItem, MenuButton, MenuItems} from "@headlessui/vue";
+import TaskListItem from "../Components/Tasks/TaskListItem";
 
 const tabs = [
     {name: 'Noi', href: '#', current: true},
@@ -118,6 +71,7 @@ const tabs = [
 
 export default {
     components: {
+        TaskListItem,
         DepartmentBreadcrumbs,
         MainLayout,
         LeftSidebar,

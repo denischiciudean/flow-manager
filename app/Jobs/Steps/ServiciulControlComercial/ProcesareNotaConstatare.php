@@ -46,10 +46,19 @@ class ProcesareNotaConstatare implements ShouldQueue
 
         $title = $task_data['constatare_seria'] . '-' . $task_data['constatare_nr'];
 
+        /**
+         * update task series
+         */
+        $this->task_step->task->series = (string)Str::of($title)->replace('/', '#');
+        $this->task_step->task->save();
+        /**
+         * end update task series
+         */
+
         $this->task_step->task->update([
             'title' => $title,
             'description' => 'lorem ipsum ceva aici ',
-            'slug' => Str::of($title)->slug()
+            'slug' => (string)Str::of($title)->slug()
         ]);
 
         try {

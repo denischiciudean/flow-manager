@@ -2,7 +2,7 @@
   <div class="flex flex-row justify-around">
     <div class="mx-4 w-full">
       <label class="inline-flex items-center mt-3">
-        <input type="checkbox" class="form-checkbox h-5 w-5 text-gray-600"
+        <input type="checkbox" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded"
                v-model="value"
                :disabled="hasFixedValue"
                @change="changedValue">
