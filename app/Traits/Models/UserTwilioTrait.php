@@ -14,7 +14,7 @@ trait UserTwilioTrait
         $code = rand(100_000, 999_999);
         $this->phone_code = $code;
         $this->save();
-        return true;
+#        return true;
         try {
             $wrapper->sendSms($this->phone_number, "Codul dvs pt departments este : $code");
         } catch (\Exception $e) {
@@ -30,7 +30,7 @@ trait UserTwilioTrait
         $this->phone_code = $code;
         $this->phone_number = $phone_number;
         $this->save();
-        return true;
+#        return true;
         try {
             $wrapper->sendSms($phone_number, "Verifica nr de telefon pt departments. Codul dvs este : $code");
         } catch (\Exception $e) {

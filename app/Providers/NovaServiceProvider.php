@@ -82,7 +82,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     {
         return [
             (InviteUsers::make())->canSee(function (Request $request) {
-                //Only if it has one of the invite permissions can you see the invite
+		return true;  
+		  //Only if it has one of the invite permissions can you see the invite
                 return count($request->user()->permissions->pluck('name')->filter(fn($it) => \Str::of($it)->contains(UsersPermissions::INVITE_USER)));
             })
         ];

@@ -186,8 +186,8 @@ class TasksController extends Controller
 
             $done_steps = [...$steps, ...$done_steps];
         }
-        $current_step = $task->currentStep()->with('assignedTo')->first();
-        $allowed_to_reassign = false;
+	$current_step = $task->currentStep()->with('assignedTo')->first();
+	$allowed_to_reassign = false;
         $reassign_users = [];
         if (!$task->completed_at && $current_step) {
             $current_step->component = \Str::of($current_step->step->component)->explode("/")->last();
@@ -251,9 +251,9 @@ class TasksController extends Controller
         if (!$department->has_children && $user->hasAnyRole('sef-' . $department->slug)) {
             return redirect()->route('task.create.select_workflow', ['department_id' => $department->id, 'department_slug' => $department->slug]);
         }
-
-        $children = $department->descendants()->whereHas('workflows')->get()->filter(fn($it) => $user->can(DepartmentsPermissions::VIEW($it->slug)));
-
+	
+#	$children = $department->descendants()->whereHas('workflows')->get()->filter(fn($it) => $user->can(DepartmentsPermissions::VIEW($it->slug)));
+	$children = $department->descendants()->whereHas('workflows')->get();
         return Inertia::render('Tasks/Create/SelectDepartment', [
             'departments' => $children,
             'step' => 1
@@ -264,7 +264,8 @@ class TasksController extends Controller
     {
         $user = $request->user();
         $department = Department::where('id', $department)->with('workflows')->first();
-        $workflows = $department->workflows->filter(fn($it) => $user->can(WorkflowPermissions::CREATE($it->slug)));
+	$workflows = $department->workflows->filter(fn($it) => $user->can(WorkflowPermissions::CREATE($it->slug)));
+	$workflows = $department->workflows;
         return Inertia::render('Tasks/Create/SelectWorkflow', ['step' => 2, 'workflows' => $workflows, 'selected_department' => $department]);
     }
 
@@ -281,9 +282,9 @@ class TasksController extends Controller
 
         $workflow = Workflow::where('id', $workflow)->with('steps')->first();
 
-        if (!$user->can(WorkflowPermissions::CREATE($workflow->slug))) {
-            abort(403);
-        }
+        #if (!$user->can(WorkflowPermissions::CREATE($workflow->slug))) {
+        #    abort(403);
+        #}
 
         $first_step = $workflow->steps->where('pivot.rank', 1)->first();
 
@@ -435,7 +436,6 @@ class TasksController extends Controller
         );
 
         $task_step->track_created();
-
         if ($next_step->type == 'job') {
             //DISPATCH THE NEXT STEP AUTOMATICALLY
             dispatch(new $next_step->component($task_step));
