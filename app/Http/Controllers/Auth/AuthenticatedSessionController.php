@@ -45,8 +45,6 @@ class AuthenticatedSessionController extends Controller
 
     private function wrongCredentials()
     {
-
-
         return redirect()->route('login')->withErrors(['message' => 'These credentials do not match our records']);
     }
 

@@ -165,7 +165,7 @@ export default {
                 this.mention,
             ],
             editable: this.editable,
-            content: ' CONTENT ',
+            content: ' ',
         })
 
         this.display_comments = this.comments.map(it => {

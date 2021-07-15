@@ -18,6 +18,7 @@ trait UserTwilioTrait
         try {
             $wrapper->sendSms($this->phone_number, "Codul dvs pt departments este : $code");
         } catch (\Exception $e) {
+            dd($e);
             return false;
         }
         return true;

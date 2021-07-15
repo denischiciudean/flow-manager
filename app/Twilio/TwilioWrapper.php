@@ -4,7 +4,6 @@
 namespace App\Twilio;
 
 
-use MongoDB\Driver\Exception\ExecutionTimeoutException;
 use Twilio\Rest\Client;
 
 class TwilioWrapper

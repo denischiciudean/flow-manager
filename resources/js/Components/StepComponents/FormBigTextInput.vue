@@ -3,9 +3,10 @@
         <label for="email_address" class="block text-sm font-medium text-gray-700">{{ label }}</label>
         <textarea id="about" name="about" rows="3"
                   v-model="value"
+                  :class="[hasError ? 'bg-red-500' : '']"
                   :disabled="hasFixedValue"
                   @keyup="valueChanged"
-                  class="shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"/>
+                  class="shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"></textarea>
     </div>
 </template>
 
@@ -17,12 +18,18 @@ export default {
         return {
             value: '',
             hasFixedValue: false,
-            spans: [6, 4]
+            spans: [6, 4],
+            hasError: false
         }
     },
     created() {
         if (this.colspans) {
             this.spans = this.colspans;
+        }
+    },
+    updated() {
+        if (this.data_key in this.$page.props.errors) {
+            this.hasError = true
         }
     },
     mounted() {

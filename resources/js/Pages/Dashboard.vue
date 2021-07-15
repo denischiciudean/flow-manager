@@ -31,7 +31,8 @@
             </div>
         </div>
 <!--        <div class="bg-white shadow overflow-hidden sm:rounded-md mt-5">-->
-            <ul class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3">
+
+            <ul class="space-y-4">
                 <task-list-item :task="task" v-for="task in tasks" :key="task.id" />
             </ul>
 <!--        </div>-->

@@ -80,7 +80,7 @@
                 <MenuButton
                     class="bg-white rounded-full flex focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
                   <span class="sr-only">Open user menu</span>
-                  <img class="h-8 w-8 rounded-full" :src="user.imageUrl" alt=""/>
+                  <img class="h-8 w-8 rounded-full" :src="`https://eu.ui-avatars.com/api/?name=${$page.props.auth.user.name}`" alt=""/>
                 </MenuButton>
               </div>
               <transition enter-active-class="transition ease-out duration-100"

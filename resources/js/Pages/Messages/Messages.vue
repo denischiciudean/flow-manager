@@ -11,7 +11,7 @@
                 :states="message_states"
                 @changed="modifiedInput"/>
         </div>
-        <div class=" flex flex-row w-full mt-5">
+        <div class=" flex flex-col w-full mt-5">
             <div class="mt-4 flex-grow flex flex-col bg-white rounded p-3" v-if="messages.length"
                  v-for="message in messages">
                 <div class="w-full flex items-center space-x-2 mb-2">

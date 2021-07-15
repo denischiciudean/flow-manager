@@ -6,7 +6,7 @@
             :disabled="hasFixedValue"
             @keyup="changedValue"
             type="text"
-
+            :class="[hasError ? 'bg-red-200' :'']"
             :name="data_key"
             :id="data_key"
             autocomplete="off"
@@ -37,7 +37,15 @@ export default {
             value: '',
             hasFixedValue: false,
             placeholder: '',
-            spans: [6, 3]
+            spans: [6, 3],
+            hasError: false
+        }
+    },
+    updated() {
+        if (typeof this.$page.props.errors == 'object') {
+            if (this.data_key in this.$page.props.errors) {
+                this.hasError = true
+            }
         }
     },
     created() {
