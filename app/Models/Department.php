@@ -21,7 +21,7 @@ class Department extends Model
 
     public function users(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'user_departments', 'user_id', 'department_id');
+        return $this->belongsToMany(User::class, 'user_departments', 'department_id', 'user_id');
     }
 
 //    public function sub(): HasMany
