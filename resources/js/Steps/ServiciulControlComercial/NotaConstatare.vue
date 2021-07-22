@@ -37,12 +37,13 @@
                 </div>
 
                 <!-- SEDIU-->
-                <formular-sediu @changed="modifiedInput" :step_data="step_data" class="mb-3"/>
+                <formular-sediu @changed="modifiedInput" :step_data="step_data" class="mb-3" :default_open="true"/>
                 <!-- END SEDIU -->
-                <formular-registrul-comertului @changed="modifiedInput" :step_data="step_data" class="mb-3"/>
+                <formular-registrul-comertului @changed="modifiedInput" :step_data="step_data" class="mb-3"
+                                               :default_open="true"/>
                 <!-- END REG COMERTULUI -->
                 <!-- Date Reprezentat-->
-                <form-reprezentant @changed="modifiedInput" :step_data="step_data" class="mb-3"/>
+                <form-reprezentant @changed="modifiedInput" :step_data="step_data" class="mb-3" :default_open="true"/>
                 <!-- END Date Reprezentat-->
             </disclosure-pane>
         </div>
@@ -174,21 +175,46 @@
 
         <!-- PREZENTARE SEDIU -->
         <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
-            <disclosure-pane title="Prezentare la sediu">
-                <div class="p-4 grid grid-cols-6 gap-6">
+            <disclosure-pane title="Prezentare la sediu" :default_open="true">
+                <RadioGroup v-model="form.prezentare_la_sediu" :disabled="is_display">
+                    <RadioGroupLabel>
+                        <div class="mb-3 pt-0">
+                            <div class="flex flex-row justify-around">
+                                <div class="mx-4 w-full">
+                                    <span class="text-lg font-bold"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </RadioGroupLabel>
+                    <div class="flex justify-around">
+                        <RadioGroupOption v-slot="{ checked }" :value="true">
+                            <div class="px-3 cursor-pointer py-2 rounded shadow outline-none"
+                                 :class="checked ? 'bg-indigo-400 text-white font-bold' : ''">Da
+                            </div>
+                        </RadioGroupOption>
+                        <RadioGroupOption v-slot="{ checked }" :value="false">
+                            <div class="px-3 py-2 cursor-pointer rounded shadow outline-none"
+                                 :class="checked ? 'bg-indigo-400 text-white font-bold' : ''">Nu
+                            </div>
+                        </RadioGroupOption>
+                    </div>
+                </RadioGroup>
+
+                <div class="p-4 grid grid-cols-6 gap-6" v-if="form.prezentare_la_sediu">
                     <c-date-picker :colspans="[6, 3]"
                                    data_key="prezentare_sediu_data"
                                    label="Data"
                                    @changed="modifiedInput"/>
-<!--                    <form-text-input label="Ora" data_key="prezentare_sediu_ora" @changed="modifiedInput"/>-->
+                    <!--                    <form-text-input label="Ora" data_key="prezentare_sediu_ora" @changed="modifiedInput"/>-->
                 </div>
+
             </disclosure-pane>
         </div>
         <!-- END Prezentare Sediu -->
 
         <!-- FILE UPLOAD-->
-        <div class="rounded bg-white p-4 mt-4">
-            <disclosure-pane title="Incarca Document" :unmount="false">
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3">
+            <disclosure-pane title="Incarca Document" :unmount="false" :default_open="true">
                 <file-upload @changed="modifiedInput" data_key="uploaded_doc"
                              :as_display="true"
                              :multiple="true"
@@ -199,8 +225,8 @@
             </disclosure-pane>
         </div>
         <!-- FILE UPLOAD -->
-        <div class="rounded bg-white p-4 mt-4 text-center" v-if="!is_display">
-            <button @click="submit" class="py-3 px-2 rounded bg-purple-500 text-white font-bold">Creaza</button>
+        <div class="shadow  sm:rounded-md rounded bg-white p-4 mt-3 text-center" v-if="!is_display">
+            <button @click="submit" class="py-3 px-2 rounded bg-purple-500 text-white font-bold">Creeaza</button>
         </div>
     </div>
 </template>
@@ -257,10 +283,10 @@ export default {
     ],
     data() {
         return {
-            agents: [{text: '1', value: 1}, {text: '2', value: 2}],
             open: true,
             form: {
                 emis_proces_verbal: false,
+                prezentare_la_sediu: false,
                 uploaded_doc: null
             },
             agents_user_list: null

@@ -13,7 +13,7 @@
         <div v-for="(completed_step, i) in done_steps">
             <component :is="`Details${completed_step.component}`"
                        :department="task"
-                       class="mt-3"
+                       :class="[i !== 0 ? 'mt-3' : '']"
                        :workflow_id="workflow.id"
                        :workflow_slug="workflow.slug"
                        :step="completed_step"

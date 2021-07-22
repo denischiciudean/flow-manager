@@ -11,19 +11,20 @@
                             <ul class="-my-4 divide-y divide-gray-200">
                                 <li v-for="message in $page.props.messages" :key="message.id"
                                     class="flex items-center py-4 space-x-3 border-b border-1">
-                                    <div class="min-w-0 flex-1 flex-grow">
-                                        <div class="text-sm font-medium text-gray-900">
-                                            <span
-                                                class="text-gray-500 font-bold my-2">Nota : {{ message.task.title }}</span>
-                                            <span class="text-gray-500 my-2"
-                                                  v-html="proxyGenerateHtml(message.content)"></span>
-                                            <inertia-link :href="message.href"
-                                                          class="text-gray-500 text-xs float-right">Citeste >>>
-                                            </inertia-link>
-                                        </div>
-                                        <div class="mt-2">
-                                            @{{ message.created_by.name }} acum
-                                            {{ parseInt(((Date.now() / 1000 - message.created_at) / 60)) }} minute
+                                    <div class="min-w-0 flex-1 flex-grow rounded p-1 hover:bg-gray-100">
+                                        <inertia-link :href="message.href" >
+                                            <div class="text-sm font-medium text-gray-900">
+                                                <div
+                                                    class="text-gray-500 font-bold my-2 uppercase">{{
+                                                    message.task.title
+                                                    }}
+                                                </div>
+                                                <div class="text-gray-500 my-2 text-sm truncate"
+                                                     v-html="proxyGenerateHtml(message.content)"></div>
+                                            </div>
+                                        </inertia-link>
+                                        <div class="mt-2 text-xs">
+                                            @{{ message.created_by.name }} cu {{ message.created_at }}
                                         </div>
                                     </div>
                                     <hr>
@@ -31,7 +32,7 @@
                             </ul>
                         </div>
                         <div class="mt-6">
-                            <a href="#"
+                            <a href="/mesagerie"
                                class="w-full block text-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
                                 View all
                             </a>

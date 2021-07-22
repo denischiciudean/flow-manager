@@ -22,4 +22,15 @@ class StateTrack extends Model
         return $this->morphToMany(User::class, 'state_trackable');
     }
 
+
+    public function formatForView()
+    {
+        return [
+            'id' => $this->id,
+            'created_at' => $this->created_at->locale('ro')->format('D m'),
+            'type' => $this->type,
+            'note' => $this->note
+        ];
+    }
+
 }

@@ -30,12 +30,11 @@
                 </nav>
             </div>
         </div>
-<!--        <div class="bg-white shadow overflow-hidden sm:rounded-md mt-5">-->
-
-            <ul class="space-y-4">
-                <task-list-item :task="task" v-for="task in tasks" :key="task.id" />
-            </ul>
-<!--        </div>-->
+        <!--        <div class="bg-white shadow overflow-hidden sm:rounded-md mt-5">-->
+        <ul class="space-y-4">
+            <task-list-item :task="task" v-for="task in tasks" :key="task.id"/>
+        </ul>
+        <!--        </div>-->
     </main-layout>
 </template>
 
@@ -63,11 +62,15 @@ import {
 import {Menu, MenuItem, MenuButton, MenuItems} from "@headlessui/vue";
 import TaskListItem from "../Components/Tasks/TaskListItem";
 
+const urlSearchParams = new URLSearchParams(window.location.search);
+const params = Object.fromEntries(urlSearchParams.entries());
+
+const status = 'status' in params ? params['status'] : null;
+
 const tabs = [
-    {name: 'Noi', href: '#', current: true},
-    {name: 'Expira', href: '#', current: false},
-    {name: 'Prioritare', href: '#', current: false},
-    {name: 'Toate', href: '#', current: false}
+    {slug: "all", name: 'Toate', href: `?status=all`, current: (status == 'all' || !status)},
+    {slug: "new", name: 'Noi', href: '?status=new', current: status == 'new'},
+    {slug: "expires", name: 'Expira', href: '?status=expires', current: status == 'expires'}
 ]
 
 export default {

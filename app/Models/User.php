@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Contracts\Role;
 use Spatie\Permission\Traits\HasPermissions;
 use Spatie\Permission\Traits\HasRoles;
+use function get_class;
 
 class User extends Authenticatable
 {
@@ -93,7 +94,7 @@ class User extends Authenticatable
     /**
      * Assign the given role to the model.
      *
-     * @param array|string|\Spatie\Permission\Contracts\Role ...$roles
+     * @param array|string|Role ...$roles
      *
      * @return $this
      */
@@ -127,7 +128,7 @@ class User extends Authenticatable
             $this->roles()->sync($roles, false);
             $model->load('roles');
         } else {
-            $class = \get_class($model);
+            $class = get_class($model);
 
             $class::saved(
                 function ($object) use ($roles, $model) {

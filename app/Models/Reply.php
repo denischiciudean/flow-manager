@@ -49,7 +49,7 @@ class Reply extends Model
             'content' => $this->content,
             'message_id' => $this->id,
             'href' => route('task.view', ['task_id' => $task ? $this->task->first()->id : '', 'task_slug' => $task ? ($this->task->first()->slug ?? $this->task->first()->title) : 'task']),
-            'created_at' => $this->created_at->timestamp,
+            'created_at' => $this->created_at->locale('ro')->diffForHumans(),
         ];
     }
 

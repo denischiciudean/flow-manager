@@ -15,7 +15,7 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-        $status = $request->has('status') ? $request->get('status') : 'toate';
+        $status = $request->has('status') ? $request->get('status') : 'all';
 
         $user = auth()->user();
 
@@ -24,12 +24,17 @@ class DashboardController extends Controller
             /**
              * Expires in less than 3 days
              */
-            ->when($status == 'expira', function ($it) {
-                return $it->filter(function ($task) {
-                    return $task->expires_at->startOfDay()->timestamp >= now()->subDays(3)->startOfDay()->timestamp;
+            ->when($status == 'expires', function ($it) {
+                return $it->sortBy(function ($task) {
+                    return ($task->expires_at->timestamp - now()->timestamp) / 60 / 60 / 24;
                 });
             })
-            ->map->mapForDashboard()->toArray();
+            ->when($status == 'new', function ($it) {
+                return $it->sortByDesc(function ($task) {
+                    return $task->created_at;
+                });
+            })
+            ->map->mapForDashboard()->values()->toArray();
         $messages = $user
             ->mentions()
             ->limit(5)
