@@ -68,11 +68,11 @@
           </div>
           <div class="hidden lg:flex lg:items-center lg:justify-end xl:col-span-4">
 
-            <a href="#"
-               class="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">
-              <span class="sr-only">View notifications</span>
-              <BellIcon class="h-6 w-6" aria-hidden="true"/>
-            </a>
+<!--            <a href="#"-->
+<!--               class="ml-5 flex-shrink-0 bg-white rounded-full p-1 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-rose-500">-->
+<!--              <span class="sr-only">View notifications</span>-->
+<!--              <BellIcon class="h-6 w-6" aria-hidden="true"/>-->
+<!--            </a>-->
 
             <!-- Profile dropdown -->
             <Menu as="div" class="flex-shrink-0 relative ml-5">
