@@ -37,7 +37,11 @@ export default {
     },
     watch: {
         date() {
-            this.$emit('changed', [this.data_key, this.date.getTime()]);
+            console.log(typeof this.date == 'object')
+            if (typeof this.date == 'Object') {
+
+                this.$emit('changed', [this.data_key, this.date.getTime()]);
+            }
         }
     },
 }

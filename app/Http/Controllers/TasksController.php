@@ -154,7 +154,7 @@ class TasksController extends Controller
 
         $task_changes = $task->stateChanges()->get();
 
-        $history = $task->steps()->with('stateChanges')->get()->pluck('stateChanges')->flatten()->merge($task_changes)->sortBy('id')->values()->toArray();
+        $history = $task->steps()->with('stateChanges')->get()->pluck('stateChanges')->flatten()->merge($task_changes)->sortBy('id')->values()->map->formatForView()->toArray();
 
         $task_department = $task->department;
         $parent_task_split = $task->parent_split->first();
@@ -198,8 +198,7 @@ class TasksController extends Controller
 	    $departments_ancestors_and_self = $task_department->ancestorsAndSelf()->with('users')->get();
 	    #dd($departments_ancestors_and_self->pluck('users')->flatten());
             $department_sef_roles = $departments_ancestors_and_self->pluck('slug')->map(fn($it) => 'sef-' . $it)->toArray();
-	    
-	    if (
+            if (
                 $user->hasAnyRole($department_sef_roles) ||
                 $task->currentStep()->first()->assigned_to == $user->id
 	    ) {
@@ -255,7 +254,6 @@ class TasksController extends Controller
         if (!$department->has_children && $user->hasAnyRole('sef-' . $department->slug)) {
             return redirect()->route('task.create.select_workflow', ['department_id' => $department->id, 'department_slug' => $department->slug]);
         }
-
 
 
         $children = $department->descendants()->whereHas('workflows')->get()->filter(fn($it) => $user->can(DepartmentsPermissions::VIEW($it->slug)));

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-72 fixed h-auto mb-5">
+    <div class="w-72 h-auto">
         <Listbox v-model="selected_state">
             <div class="mt-1 h-auto">
                 <ListboxButton
@@ -19,7 +19,7 @@
                     leave-to-class="opacity-0"
                 >
                     <ListboxOptions
-                        class="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+                        class="relative w-full py-1 mt-1 overflow-y-visible text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
                     >
                         <ListboxOption
                             v-slot="{ active, selected }"

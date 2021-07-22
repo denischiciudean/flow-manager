@@ -57,7 +57,7 @@ class ProcesareNotaConstatare implements ShouldQueue
 
         $this->task_step->task->update([
             'title' => $title,
-            'description' => 'lorem ipsum ceva aici ',
+            'description' => "Agent Constatator : {$task_data['agent_constatator_1']} <br> Agent Economix : {$task_data['agent_economic_nume']}",
             'slug' => (string)Str::of($title)->slug()
         ]);
 
@@ -127,9 +127,9 @@ class ProcesareNotaConstatare implements ShouldQueue
             'department_id' => $task->department_id,
             'workflow_id' => $proces_verbal_workflow->id,
             'created_by' => $task->created_by,
-            'title' => 'Proces Verbal - ' . $task->slug,
+            'title' => 'PV - ' . $task->slug,
             'description' => ' ',
-            'slug' => \Str::of('Proces Verbal - ' . $task->slug)->slug(),
+            'slug' => \Str::of('PV - ' . $task->slug)->slug(),
             'status' => 'created',
             'expires_at' => now()->addDays($proces_verbal_workflow->expiration_in)
         ]);

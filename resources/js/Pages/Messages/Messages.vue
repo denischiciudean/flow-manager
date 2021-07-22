@@ -5,7 +5,7 @@
         </template>
         <div class="text-2xl font-bold mb-2">Mesagerie</div>
 
-        <div class="mb-5 pb-5">
+        <div class="pb-5 ">
             <custom-dropdown
                 data_key="selected_state"
                 :states="message_states"
