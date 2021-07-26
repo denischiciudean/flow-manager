@@ -6,16 +6,20 @@
                     Incalca prevederile
                 </div>
                 <div class="px-3 py-5 bg-white sm:p-3 grid grid-cols-6 gap-6">
-                    <form-text-input label="art"
-                                     class="my-2"
-                                     :fixed_value="disabled ? amenda.prevederi_incalcate_art : undefined"
-                                     @changed="([key, data]) => modifiedInput(key, data, index)"
-                                     data_key="prevederi_incalcate_art"/>
-                    <form-text-input label="lit"
-                                     class="my-2"
-                                     :fixed_value="disabled ? amenda.prevederi_incalcate_lit : undefined"
-                                     @changed="([key, data]) => modifiedInput(key, data, index)"
-                                     data_key="prevederi_incalcate_lit"/>
+
+                    <c-select :options="articole" data_key="prevederi_incalcate"
+                              @changed="([key, data]) => modifiedInput(key, data, index)"/>
+
+                    <!--                    <form-text-input label="art"-->
+                    <!--                                     class="my-2"-->
+                    <!--                                     :fixed_value="disabled ? amenda.prevederi_incalcate_art : undefined"-->
+                    <!--                                     @changed="([key, data]) => modifiedInput(key, data, index)"-->
+                    <!--                                     data_key="prevederi_incalcate_art"/>-->
+                    <!--                    <form-text-input label="lit"-->
+                    <!--                                     class="my-2"-->
+                    <!--                                     :fixed_value="disabled ? amenda.prevederi_incalcate_lit : undefined"-->
+                    <!--                                     @changed="([key, data]) => modifiedInput(key, data, index)"-->
+                    <!--                                     data_key="prevederi_incalcate_lit"/>-->
                 </div>
                 <div class="font-medium my-2">
                     Se sanctioneaza conform
@@ -23,17 +27,21 @@
 
                 <div class="px-3 py-5 bg-white sm:p-3 grid grid-cols-6 gap-6">
 
-                    <form-text-input label="art"
-                                     :fixed_value="disabled ? amenda.sanctionare_conform_art : undefined"
-                                     @changed="([key, data]) => modifiedInput(key, data, index)"
-                                     data_key="sanctionare_conform_art"
-                    ></form-text-input>
+                    <c-select :options="articole"
+                              data_key="sanctionare_conform"
+                              @changed="([key, data]) => modifiedInput(key, data, index)"/>
 
-                    <form-text-input label="lit"
-                                     :fixed_value="disabled ? amenda.sanctionare_conform_lit : undefined"
-                                     @changed="([key, data]) => modifiedInput(key, data, index)"
-                                     data_key="sanctionare_conform_lit"
-                    ></form-text-input>
+                    <!--                    <form-text-input label="art"-->
+                    <!--                                     :fixed_value="disabled ? amenda.sanctionare_conform_art : undefined"-->
+                    <!--                                     @changed="([key, data]) => modifiedInput(key, data, index)"-->
+                    <!--                                     data_key="sanctionare_conform_art"-->
+                    <!--                    ></form-text-input>-->
+
+                    <!--                    <form-text-input label="lit"-->
+                    <!--                                     :fixed_value="disabled ? amenda.sanctionare_conform_lit : undefined"-->
+                    <!--                                     @changed="([key, data]) => modifiedInput(key, data, index)"-->
+                    <!--                                     data_key="sanctionare_conform_lit"-->
+                    <!--                    ></form-text-input>-->
                 </div>
 
                 <div class="font-medium my-2">
@@ -69,7 +77,7 @@
                     <div class="col-span-3">
                         <button @click="remove(index)"
                                 class=" py-2 px-2 font-bold bg-red-500 text-sm text-white rounded right ">
-                            Sterge fapta {{index +1}}
+                            Sterge fapta {{ index + 1 }}
                         </button>
                     </div>
 
@@ -89,10 +97,11 @@
 
 import FormTextInput from "./FormTextInput";
 import DisclosurePane from "../DisclosurePane";
+import CSelect from "./CSelect";
 
 export default {
     name: "Amenzi",
-    components: {DisclosurePane, FormTextInput},
+    components: {CSelect, DisclosurePane, FormTextInput},
     props: [
         'data_key',
         'fixed_value'
@@ -100,6 +109,7 @@ export default {
     data() {
         return {
             amenzi: [],
+            articole: []
         };
     },
     computed: {
@@ -108,6 +118,7 @@ export default {
         }
     },
     mounted() {
+        this.articole = this.$page.props.current_step.component_data.articole;
         if (this.fixed_value) {
             this.amenzi = this.fixed_value
         }
@@ -123,10 +134,8 @@ export default {
         },
         add() {
             this.amenzi.push({
-                prevederi_incalcate_art: '',
-                prevederi_incalcate_lit: '',
-                sanctionare_conform_art: '',
-                sanctionare_conform_lit: '',
+                prevederi_incalcate: '',
+                sanctionare_conform: '',
                 amenda_de: 100,
                 amenda_la: 100_000,
                 amenda_aplicata: 150

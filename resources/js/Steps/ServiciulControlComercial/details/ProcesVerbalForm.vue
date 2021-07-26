@@ -235,17 +235,18 @@
                                                 Prevederi incalcate
                                             </dt>
                                             <dd class="mt-1 text-sm text-gray-900">
-                                                art. {{ amenda.prevederi_incalcate_art }} lit.
-                                                {{ amenda.prevederi_incalcate_lit }}
+                                                {{ amenda.prevederi_incalcate }}
                                             </dd>
                                         </div>
-                                        <div class="sm:col-span-1" >
+                                        <div class="sm:col-span-1">
                                             <dt class="text-sm font-bold text-gray-500">
                                                 Cu amenda
                                             </dt>
                                             <dd class="mt-1 text-sm text-gray-900">
                                                 de la {{ amenda.amenda_de }} pana la
-                                                {{ amenda.amenda_la }} cu amenda aplicata de {{ amenda.amenda_aplicata }}
+                                                {{ amenda.amenda_la }} cu amenda aplicata de {{
+                                                    amenda.amenda_aplicata
+                                                }}
                                             </dd>
                                         </div>
 
@@ -254,8 +255,7 @@
                                                 Sanctionat conform
                                             </dt>
                                             <dd class="mt-1 text-sm text-gray-900">
-                                                art. {{ amenda.sanctionare_conform_art }} lit.
-                                                {{ amenda.sanctionare_conform_lit }}
+                                                {{ amenda.sanctionare_conform }}
                                             </dd>
                                         </div>
 

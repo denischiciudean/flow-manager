@@ -54,16 +54,34 @@
                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
                 <div v-if="fixed_value.length" class="flex flex-row justify-evenly flex-wrap w-full">
-                    <div
-                        class="py-1 flex flex-row justify-between px-2 rounded-lg my-1 border-1 border border-purple-400 w-1/3 flex-shrink-1 mx-2 text-purple-400 hover:bg-purple-400 hover:text-white"
-                        style="min-width: 200px"
-                        v-for="(file, index) in uploaded_docs">
-                        <a class="flex-grow align-middle" :href="`${file.href}`">
-                            <div class="w-full text-xs  pr-2">
-                                {{ file.basename }}
-                            </div>
-                        </a>
-                    </div>
+<!--                    <div-->
+<!--                        class="py-1 flex flex-row justify-between px-2 rounded-lg my-1 border-1 border border-purple-400 w-1/3 flex-shrink-1 mx-2 text-purple-400 hover:bg-purple-400 hover:text-white"-->
+<!--                        style="min-width: 200px"-->
+<!--                        v-for="(file, index) in uploaded_docs">-->
+<!--                        <a class="flex-grow align-middle" :href="`${file.href}`">-->
+<!--                            <div class="w-full text-xs  pr-2">-->
+<!--                                {{ file.basename }}-->
+<!--                            </div>-->
+<!--                        </a>-->
+<!--                    </div>-->
+
+                    <section class="mt-8 pb-16" aria-labelledby="gallery-heading">
+                        <h2 id="gallery-heading" class="sr-only">Recently viewed</h2>
+                        <ul role="list" class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+
+                            <li class="relative" v-for="(file, index) in uploaded_docs">
+                                <div class="ring-2 ring-offset-2 ring-indigo-500 group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden" x-state:on="Current" x-state:off="Default" x-state-description="Current: &quot;ring-2 ring-offset-2 ring-indigo-500&quot;, Default: &quot;focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-offset-gray-100 focus-within:ring-indigo-500&quot;">
+                                    <img src="" alt="" class=" object-cover pointer-events-none" x-state:on="Current" x-state:off="Default" x-state-description="Current: &quot;&quot;, Default: &quot;group-hover:opacity-75&quot;">
+                                    <button type="button" class="absolute inset-0 focus:outline-none">
+                                        <span class="sr-only">View details for {{file}}</span>
+                                    </button>
+                                </div>
+                                <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">IMG_4985.HEIC</p>
+                                <p class="block text-sm font-medium text-gray-500 pointer-events-none">3.9 MB</p>
+                            </li>
+
+                        </ul>
+                    </section>
                 </div>
             </div>
         </div>

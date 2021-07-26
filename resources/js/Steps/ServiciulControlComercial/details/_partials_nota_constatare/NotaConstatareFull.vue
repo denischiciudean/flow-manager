@@ -28,23 +28,23 @@
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900">
                     {{
-                        `Loc. ${
-                            step_data.agent_economic_sediu_localitate
-                        }, Jud. ${
-                            step_data.agent_economic_sediu_judet
-                        }, Str. ${
-                            step_data.agent_economic_sediu_strada
-                        }, Nr. ${
-                            step_data.agent_economic_sediu_numar
-                        }, Bloc ${
-                            step_data.agent_economic_sediu_bloc ?? '-'
-                        }, Scara ${
-                            step_data.agent_economic_sediu_scara ?? '-'
-                        }, Etaj ${
-                            step_data.agent_economic_sediu_etaj ?? '-'
-                        }, Ap. ${
-                            step_data.agent_economic_sediu_apartament ?? '-'
-                        }`
+                    `Loc. ${
+                    step_data.agent_economic_sediu_localitate
+                    }, Jud. ${
+                    step_data.agent_economic_sediu_judet
+                    }, Str. ${
+                    step_data.agent_economic_sediu_strada
+                    }, Nr. ${
+                    step_data.agent_economic_sediu_numar
+                    }, Bloc ${
+                    step_data.agent_economic_sediu_bloc ?? '-'
+                    }, Scara ${
+                    step_data.agent_economic_sediu_scara ?? '-'
+                    }, Etaj ${
+                    step_data.agent_economic_sediu_etaj ?? '-'
+                    }, Ap. ${
+                    step_data.agent_economic_sediu_apartament ?? '-'
+                    }`
                     }}
                 </dd>
             </div>
@@ -83,23 +83,23 @@
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900">
                     {{
-                        `Loc. ${
-                            step_data.reprezentant_localitate
-                        }, Jud. ${
-                            step_data.reprezentant_judet
-                        }, Str. ${
-                            step_data.reprezentant_strada
-                        }, Nr. ${
-                            step_data.reprezentant_numar
-                        }, Bloc ${
-                            step_data.reprezentant_bloc ?? '-'
-                        }, Scara ${
-                            step_data.reprezentant_scara ?? '-'
-                        }, Etaj ${
-                            step_data.reprezentant_etaj ?? '-'
-                        }, Ap. ${
-                            step_data.reprezentant_apartament ?? '-'
-                        }`
+                    `Loc. ${
+                    step_data.reprezentant_localitate
+                    }, Jud. ${
+                    step_data.reprezentant_judet
+                    }, Str. ${
+                    step_data.reprezentant_strada
+                    }, Nr. ${
+                    step_data.reprezentant_numar
+                    }, Bloc ${
+                    step_data.reprezentant_bloc ?? '-'
+                    }, Scara ${
+                    step_data.reprezentant_scara ?? '-'
+                    }, Etaj ${
+                    step_data.reprezentant_etaj ?? '-'
+                    }, Ap. ${
+                    step_data.reprezentant_apartament ?? '-'
+                    }`
                     }}
                 </dd>
             </div>
@@ -113,7 +113,7 @@
                     {{ step_data.reprezentant_act_identitate_seria }}, Nr.
                     {{ step_data.reprezentant_act_identitate_numar }}
                     eliberat de {{ step_data.reprezentant_act_identitate_eliberat_de }}, la data {{
-                        (new Date(parseInt(step_data.reprezentant_act_identitate_eliberat_la_data))).toLocaleDateString()
+                    (new Date(parseInt(step_data.reprezentant_act_identitate_eliberat_la_data))).toLocaleDateString()
                     }},
                     CNP {{ step_data.reprezentant_act_identitate_cnp }}
                 </dd>
@@ -305,24 +305,52 @@
                     Attachments
                 </dt>
                 <dd class="mt-1 text-sm text-gray-900">
-                    <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
-                        <li v-for="attachment in attachments" :key="attachment.name"
-                            class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
-                            <div class="w-0 flex-1 flex items-center">
-                                <PaperClipIcon class="flex-shrink-0 h-5 w-5 text-gray-400"
-                                               aria-hidden="true"/>
-                                <span class="ml-2 flex-1 w-0 truncate">
-                              {{ attachment.name }}
-                            </span>
-                            </div>
-                            <div class="ml-4 flex-shrink-0">
-                                <a :href="attachment.href"
-                                   class="font-medium text-blue-600 hover:text-blue-500">
-                                    Download
-                                </a>
-                            </div>
+                    <!--                    <section class="mt-8 pb-16" aria-labelledby="gallery-heading">-->
+                    <!--                        <h2 id="gallery-heading" class="sr-only">Recently viewed</h2>-->
+                    <ul role="list"
+                        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+
+                        <li class="relative" v-for="attachment in attachments">
+                            <a :href="attachment.href" class="w-full h-full">
+                                <div
+                                    class="ring-2 items-center ring-offset-2 ring-indigo-500 group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden text-center">
+                                    <img :src="attachment.href" alt="" class="object-cover pointer-events-none"
+                                         v-if="(/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(attachment.name)">
+                                    <img
+                                        class="object-cover pointer-events-none"
+                                        style="max-height: 64px;"
+
+                                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/File_alt_font_awesome.svg/1024px-File_alt_font_awesome.svg.png"
+                                        alt="" v-else>
+                                    <button type="button" class="absolute inset-0 focus:outline-none">
+                                        <span class="sr-only">View details for {{ attachment.name }}</span>
+                                    </button>
+                                </div>
+                                <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
+                                    {{ attachment.name }}</p>
+                            </a>
                         </li>
+
                     </ul>
+                    <!--                    </section>-->
+                    <!--                    <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">-->
+                    <!--                        <li v-for="attachment in attachments" :key="attachment.name"-->
+                    <!--                            class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">-->
+                    <!--                            <div class="w-0 flex-1 flex items-center">-->
+                    <!--                                <PaperClipIcon class="flex-shrink-0 h-5 w-5 text-gray-400"-->
+                    <!--                                               aria-hidden="true"/>-->
+                    <!--                                <span class="ml-2 flex-1 w-0 truncate">-->
+                    <!--                              {{ attachment.name }}-->
+                    <!--                            </span>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="ml-4 flex-shrink-0">-->
+                    <!--                                <a :href="attachment.href"-->
+                    <!--                                   class="font-medium text-blue-600 hover:text-blue-500">-->
+                    <!--                                    Download-->
+                    <!--                                </a>-->
+                    <!--                            </div>-->
+                    <!--                        </li>-->
+                    <!--                    </ul>-->
                 </dd>
             </div>
         </dl>

@@ -193,25 +193,26 @@ class TasksController extends Controller
         if (!$task->completed_at && $current_step) {
             $current_step->component = \Str::of($current_step->step->component)->explode("/")->last();
 
+            $current_step->component_data = $current_step->step->validation['data'] ?? [];
+
             $user = \Auth::user();
 
-	    $departments_ancestors_and_self = $task_department->ancestorsAndSelf()->with('users')->get();
-	    #dd($departments_ancestors_and_self->pluck('users')->flatten());
+            $departments_ancestors_and_self = $task_department->ancestorsAndSelf()->with('users')->get();
+            #dd($departments_ancestors_and_self->pluck('users')->flatten());
             $department_sef_roles = $departments_ancestors_and_self->pluck('slug')->map(fn($it) => 'sef-' . $it)->toArray();
             if (
                 $user->hasAnyRole($department_sef_roles) ||
                 $task->currentStep()->first()->assigned_to == $user->id
-	    ) {
+            ) {
                 $allowed_to_reassign = true;
                 $users = $departments_ancestors_and_self->pluck('users');
-		$bosses = $users->flatten()->filter->hasAnyRole($department_sef_roles);
+                $bosses = $users->flatten()->filter->hasAnyRole($department_sef_roles);
                 $employees = $task_department->users->filter->hasRole('angajat-' . $task_department->slug);
 
                 //Take reassignable users
                 $reassign_users = [...$bosses, ...$employees];
-	    
-	    }
-	    #dd($reassign_users);
+            }
+            #dd($reassign_users);
         }
 
         /*

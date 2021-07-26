@@ -104,7 +104,6 @@ class ProcesareNotaConstatare implements ShouldQueue
             }
             // Next step is a job, we should start it here
 
-
             /**
              * Old Step Track Completed
              */
