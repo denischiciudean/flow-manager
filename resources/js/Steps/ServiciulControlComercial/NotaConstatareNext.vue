@@ -36,7 +36,6 @@ export default {
         'is_display',
     ],
     mounted() {
-        console.log(this.previous_steps)
     },
     data() {
         return {
@@ -45,7 +44,6 @@ export default {
     },
     watch: {
         date() {
-            console.log(this.date.getTime())
         }
     },
     methods: {

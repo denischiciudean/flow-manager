@@ -294,7 +294,6 @@ export default {
     },
     mounted() {
         this.retrieveUsers();
-        console.log(this.$page.props)
         if (this.step_data) {
             this.form.emis_proces_verbal = !!this.step_data.emis_proces_verbal
         }

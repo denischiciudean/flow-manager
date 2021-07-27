@@ -114,7 +114,6 @@ export default {
         async retrieveUsers() {
             const res = await axios.get(`/api/mentionable-users?workflow_id=${this.workflow_id}`);
             this.agents_user_list = res.data.data.filter(it => [parseInt(this.step_data.agent_constatator_1), parseInt(this.step_data.agent_constatator_2)].includes(it.id));
-            console.log(this.agents_user_list)
         }
     },
     data() {

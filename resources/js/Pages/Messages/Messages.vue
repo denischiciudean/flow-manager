@@ -139,7 +139,6 @@ export default {
             /**
              * Filter the messages somehow
              */
-            console.log("changed")
         }
     }
 }

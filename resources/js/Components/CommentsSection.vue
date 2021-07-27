@@ -190,7 +190,6 @@ export default {
 
         async addComment() {
             let data = this.editor.getJSON();
-            console.log(JSON.stringify(data))
             axios.post('/api/add-comment', {
                 type: 'task',
                 content: data,

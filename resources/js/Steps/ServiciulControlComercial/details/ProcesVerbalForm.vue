@@ -313,7 +313,6 @@ export default {
     },
     mounted() {
         const done_steps = (this.$page.props.done_steps).filter(it => it.component == 'NotaConstatare');
-        console.log("test", done_steps.length)
         if (done_steps.length) {
             this.agent_economic = done_steps[0].data.agent_economic_nume;
         }

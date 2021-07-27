@@ -308,23 +308,21 @@
                     <!--                    <section class="mt-8 pb-16" aria-labelledby="gallery-heading">-->
                     <!--                        <h2 id="gallery-heading" class="sr-only">Recently viewed</h2>-->
                     <ul role="list"
-                        class="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 sm:gap-x-6 md:grid-cols-4 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-
-                        <li class="relative" v-for="attachment in attachments">
-                            <a :href="attachment.href" class="w-full h-full">
+                        class="grid grid-cols-5 gap-x-8 gap-y-8 ">
+                        <li class="relative flex-shrink flex flex-row justify-center" v-for="attachment in attachments">
+                            <a :href="attachment.href" class="h-full">
                                 <div
+                                    style="max-height: 64px;"
                                     class="ring-2 items-center ring-offset-2 ring-indigo-500 group block w-full aspect-w-10 aspect-h-7 rounded-lg bg-gray-100 overflow-hidden text-center">
                                     <img :src="attachment.href" alt="" class="object-cover pointer-events-none"
+                                         style="max-height: 64px;"
                                          v-if="(/\.(gif|jpe?g|tiff?|png|webp|bmp)$/i).test(attachment.name)">
                                     <img
-                                        class="object-cover pointer-events-none"
                                         style="max-height: 64px;"
+                                        class="object-cover pointer-events-none"
 
                                         src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/File_alt_font_awesome.svg/1024px-File_alt_font_awesome.svg.png"
                                         alt="" v-else>
-                                    <button type="button" class="absolute inset-0 focus:outline-none">
-                                        <span class="sr-only">View details for {{ attachment.name }}</span>
-                                    </button>
                                 </div>
                                 <p class="mt-2 block text-sm font-medium text-gray-900 truncate pointer-events-none">
                                     {{ attachment.name }}</p>
