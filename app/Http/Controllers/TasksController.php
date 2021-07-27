@@ -116,7 +116,7 @@ class TasksController extends Controller
 
     public function viewFile(Request $request, TaskStep $step, $data_key, $file)
     {
-        $roles = $step->task->department->getAncestorsAndSelfRoles();
+	    $roles = $step->task->department->getAncestorsAndSelfRoles();
         if (!$request->user()->hasAnyRole($roles)) {
             return "Unauthorized";
         }
