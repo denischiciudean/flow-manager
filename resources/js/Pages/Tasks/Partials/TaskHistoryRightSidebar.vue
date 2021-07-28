@@ -45,6 +45,7 @@
                                         <div>
                                             <div class="text-sm text-gray-900">
                                                 {{ it.note }}
+                                                <br><span class="text-xs text-gray-500">Denis Chiciudean</span>
                                             </div>
                                         </div>
                                         <div class="text-right text-sm whitespace-nowrap text-gray-500">

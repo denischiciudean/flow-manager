@@ -30,4 +30,14 @@ class TaskStateTrack extends StateTrack
      * The from split
      */
     public const TASK_SPLIT_TYPE_SPLIT = 'split';
+
+    public const TIMELINE_DISPLAY = [
+        self::TASK_CREATE,
+        self::TASK_UPDATED,
+        self::TASK_COMPLETED,
+        self::TASK_DUPLICATED,
+        self::TASK_STATUS_UPDATE,
+        self::TASK_SPLIT,
+        StepStateTrack::STEP_ASSIGNED
+    ];
 }

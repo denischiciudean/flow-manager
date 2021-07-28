@@ -13,7 +13,7 @@ trait UserStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => UserStateTrack::USER_LOGGED_OUT,
-            'note' => 'User logged out',
+            'note' => 'Utilizator delogat',
             'data' => [
                 'current_time' => now()->timestamp
             ]
@@ -25,7 +25,7 @@ trait UserStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => UserStateTrack::USER_LOGGED_IN,
-            'note' => 'User nova login',
+            'note' => 'Utilizator logat | nova',
             'data' => [
                 'current_time' => now()->timestamp
             ]
@@ -37,7 +37,7 @@ trait UserStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => UserStateTrack::USER_GIVEN_ROLE,
-            'note' => 'User is ' . $role->display_name,
+            'note' => 'Utilizatorul a primit rolul ' . $role->display_name,
             'data' => [
                 'current_time' => now()->timestamp,
                 'role_id' => $role->id,
@@ -51,7 +51,7 @@ trait UserStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => UserStateTrack::USER_REVOKED_ROLE,
-            'note' => 'User revoked ' . $role->display_name,
+            'note' => 'Utilizatorului i s-a revocat rolul ' . $role->display_name,
             'data' => [
                 'current_time' => now()->timestamp,
                 'role_id' => $role->id,
@@ -65,7 +65,7 @@ trait UserStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => UserStateTrack::USER_GIVEN_ROLE,
-            'note' => 'User added to ' . $department->name,
+            'note' => 'Utilizator adaugat in departamentul ' . $department->name,
             'data' => [
                 'current_time' => now()->timestamp,
                 'role_id' => $department->id,
@@ -79,7 +79,7 @@ trait UserStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => UserStateTrack::USER_GIVEN_ROLE,
-            'note' => 'User removed from ' . $department->name,
+            'note' => 'Utilizatorul a fost inlaturat de la departamentul ' . $department->name,
             'data' => [
                 'current_time' => now()->timestamp,
                 'role_id' => $department->id,
@@ -93,7 +93,7 @@ trait UserStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => UserStateTrack::USER_INVITED,
-            'note' => 'User invited ' . $user->email,
+            'note' => 'Utilizatorul a fost invitat sa isi creeze cont : ' . $user->email,
             'data' => [
                 'current_time' => now()->timestamp,
                 'user_id' => $user->id,

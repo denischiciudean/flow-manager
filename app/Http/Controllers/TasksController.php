@@ -10,6 +10,7 @@ use App\Models\TaskStep;
 use App\Models\Workflow;
 use App\Permissions\DepartmentsPermissions;
 use App\Permissions\WorkflowPermissions;
+use App\StateTrack\TaskStateTrack;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -116,7 +117,7 @@ class TasksController extends Controller
 
     public function viewFile(Request $request, TaskStep $step, $data_key, $file)
     {
-	    $roles = $step->task->department->getAncestorsAndSelfRoles();
+        $roles = $step->task->department->getAncestorsAndSelfRoles();
         if (!$request->user()->hasAnyRole($roles)) {
             return "Unauthorized";
         }
@@ -154,7 +155,17 @@ class TasksController extends Controller
 
         $task_changes = $task->stateChanges()->get();
 
-        $history = $task->steps()->with('stateChanges')->get()->pluck('stateChanges')->flatten()->merge($task_changes)->sortBy('id')->values()->map->formatForView()->toArray();
+        $history = $task->steps()
+            ->with(['stateChanges' => fn($q) => $q->whereIn('type', TaskStateTrack::TIMELINE_DISPLAY)])
+            ->get()
+            ->pluck('stateChanges')
+            ->flatten()
+            ->merge($task_changes)
+            ->sortBy('id')
+            ->values()
+            ->map
+            ->formatForView()
+            ->toArray();
 
         $task_department = $task->department;
         $parent_task_split = $task->parent_split->first();

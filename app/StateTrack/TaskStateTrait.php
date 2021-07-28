@@ -11,7 +11,7 @@ trait TaskStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->created_by,
             'type' => TaskStateTrack::TASK_CREATE,
-            'note' => 'Created New Task',
+            'note' => 'Creare',
             'data' => [
                 'user_id' => $this->created_by,
                 'task_id' => $this->id
@@ -24,7 +24,7 @@ trait TaskStateTrait
         $this->stateChanges()->create([
             'user_id' => $this->id,
             'type' => StepStateTrack::STEP_ASSIGNED,
-            'note' => 'Step Reassigned',
+            'note' => 'Reatribuit ',
             'data' => [
                 'old' => ['user_id' => $this->assigned_to],
                 'new' => ['user_id' => $new_user]
@@ -49,12 +49,12 @@ trait TaskStateTrait
      * @param $split_task_id
      * @param string $type - this wether is the og event or from the split
      */
-    public function track_task_split($split_task_id, $type = TaskStateTrack::TASK_SPLIT_TYPE_OG)
+    public function track_task_split($split_task_id, string $type = TaskStateTrack::TASK_SPLIT_TYPE_OG)
     {
         $this->stateChanges()->create([
             'user_id' => \Auth::user()->id ?? null,
             'type' => TaskStateTrack::TASK_SPLIT,
-            'note' => $type = TaskStateTrack::TASK_SPLIT_TYPE_OG ? "Split to new task" : 'SPLIT FROM TASK',
+            'note' => $type = TaskStateTrack::TASK_SPLIT_TYPE_OG ? "Alta nota adiacenta creata" : 'Create de alta nota',
             'data' => [
                 'origin' => $this->id,
                 'created' => $split_task_id,
