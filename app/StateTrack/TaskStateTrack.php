@@ -36,7 +36,6 @@ class TaskStateTrack extends StateTrack
         self::TASK_UPDATED,
         self::TASK_COMPLETED,
         self::TASK_DUPLICATED,
-        self::TASK_STATUS_UPDATE,
         self::TASK_SPLIT,
         StepStateTrack::STEP_ASSIGNED
     ];

@@ -54,7 +54,7 @@ trait TaskStateTrait
         $this->stateChanges()->create([
             'user_id' => \Auth::user()->id ?? null,
             'type' => TaskStateTrack::TASK_SPLIT,
-            'note' => $type = TaskStateTrack::TASK_SPLIT_TYPE_OG ? "Alta nota adiacenta creata" : 'Create de alta nota',
+            'note' => $type = TaskStateTrack::TASK_SPLIT_TYPE_OG ? "Nota Adiacenta Creata" : 'Creata de alta nota',
             'data' => [
                 'origin' => $this->id,
                 'created' => $split_task_id,
