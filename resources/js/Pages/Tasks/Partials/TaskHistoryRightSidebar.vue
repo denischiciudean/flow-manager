@@ -3,7 +3,7 @@
     <aside class="hidden xl:block xl:col-span-3">
         <div class="sticky top-4 space-y-4">
             <div class="bg-white px-4 py-5 shadow sm:rounded-lg sm:px-6">
-                <h2 id="timeline-title" class="text-lg font-medium text-gray-900">Timeline</h2>
+                <h2 id="timeline-title" class="text-lg font-medium text-gray-900">Cronologie acțiuni</h2>
 
                 <!-- Activity Feed -->
                 <div class="mt-6 flow-root">
@@ -41,14 +41,14 @@
                                             </svg>
                                           </span>
                                     </div>
-                                    <div class="min-w-0 flex-1 pt-1.5 flex justify-between space-x-4">
+                                    <div class="">
                                         <div>
                                             <div class="text-sm text-gray-900">
                                                 {{ it.note }}
                                                 <br><span class="text-xs text-gray-500">Denis Chiciudean</span>
                                             </div>
                                         </div>
-                                        <div class="text-right text-sm whitespace-nowrap text-gray-500">
+                                    i    <div class="text-right text-sm whitespace-nowrap text-gray-500">
                                             <time datetime="2020-09-20">
                                                 {{ it.created_at }}
                                             </time>
